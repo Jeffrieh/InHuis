@@ -50,11 +50,13 @@ class HomeFragment : Fragment() {
                 builder.setView(layout)
 
                 //we give suggestions of what the user can add.
+                //TODO get values from resources
                 val suggestions = arrayOf("test", "hallo", "doei")
                 val adapter = ArrayAdapter(layout.context, android.R.layout.simple_list_item_1, suggestions)
 
                 layout.product_name.setAdapter(adapter)
                 layout.btnAdd.setOnClickListener { view ->
+                    //TODO get values from form!!
                     val t = Ingredient("kip", 500)
                     ingredientsViewModel.insert(t)
                 }
