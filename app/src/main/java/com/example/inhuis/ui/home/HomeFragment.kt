@@ -1,5 +1,7 @@
 package com.example.inhuis.ui.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,13 +35,21 @@ class HomeFragment : Fragment() {
 
         val fab: View = root.findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
+            val alertDialog: AlertDialog? = activity?.let {
+                val builder = AlertDialog.Builder(it)
+                val inflater = requireActivity().layoutInflater;
+                builder.setView(inflater.inflate(R.layout.dialog_add_ingredient, null))
+                // Create the AlertDialog
+                builder.create()
+            }
+            alertDialog?.show()
+
         }
+
 
         return root
     }
+
 
 
 

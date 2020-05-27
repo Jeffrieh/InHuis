@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="dialog_title">Ingredienten</string>
+    <string name="dialog_text">Hallo</string>
+
+
+    <string name="product_name">Hallo</string>
+    <string name="amount">Hallo</string>
+
+
 </resources>
