@@ -42,6 +42,7 @@ class HomeFragment : Fragment() {
                 // Create the AlertDialog
                 builder.create()
             }
+
             alertDialog?.show()
 
         }
@@ -49,11 +50,6 @@ class HomeFragment : Fragment() {
 
         return root
     }
-
-
-
-
-
 
 
 }
