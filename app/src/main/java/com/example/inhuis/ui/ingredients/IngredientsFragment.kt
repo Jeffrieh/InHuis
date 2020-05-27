@@ -1,4 +1,4 @@
-package com.example.inhuis.ui.dashboard
+package com.example.inhuis.ui.ingredients
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,22 +10,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.inhuis.R
 
-class DashboardFragment : Fragment() {
+class IngredientsFragment : Fragment() {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var ingredientsViewModel: IngredientsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dashboardViewModel =
-            ViewModelProviders.of(this).get(DashboardViewModel::class.java)
+        ingredientsViewModel =
+            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
         val textView: TextView = root.findViewById(R.id.text_dashboard)
-        dashboardViewModel.text.observe(this, Observer {
+        ingredientsViewModel.text.observe(this, Observer {
             textView.text = it
         })
+
         return root
     }
 }
