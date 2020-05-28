@@ -26,11 +26,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
-        val COUNTRIES = arrayOf("Belgium", "France", "Italy", "Germany", "Spain")
-
-
         
     }
 }

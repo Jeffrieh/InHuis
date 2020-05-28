@@ -6,7 +6,7 @@ import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import kotlinx.android.synthetic.main.ingredient_item.view.*
 
-class IngredientsAdapter(private val myDataset: List<Ingredient>) :
+class IngredientsAdapter(private var myDataset: List<Ingredient>) :
     RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -16,14 +16,16 @@ class IngredientsAdapter(private val myDataset: List<Ingredient>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.name.text = myDataset[position].name
+        holder.bind(myDataset[position])
     }
+
 
     override fun getItemCount() = myDataset.size
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(ingredient: Ingredient) {
             itemView.name.text = ingredient.name
+            itemView.amount.text = "-" + ingredient.amount.toString() + "g"
         }
 
     }

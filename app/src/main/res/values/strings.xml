@@ -11,4 +11,13 @@
 
     <string name="single_recipe_title">Test</string>
     <string name="single_recipe_text">Test text</string>
+
+    <string-array name="ingredients_array">
+        <item>Apple</item>
+        <item>Chicken</item>
+        <item>Brocolli</item>
+        <item>Onion</item>
+        <item>Garlic</item>
+        <item>Minced Meat</item>
+    </string-array>
 </resources>

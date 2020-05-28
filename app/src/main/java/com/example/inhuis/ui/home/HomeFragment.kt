@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +16,9 @@ import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.database.IngredientRepository
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
+import kotlinx.android.synthetic.main.dialog_add_ingredient.*
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
+import kotlinx.android.synthetic.main.dialog_add_ingredient.view.etAmount
 
 
 class HomeFragment : Fragment() {
@@ -35,10 +38,9 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
 
-        homeViewModel.text.observe(this, Observer {
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-
 
         //Floating action button on the home screen.
         val fab: View = root.findViewById(R.id.fab)
@@ -49,15 +51,18 @@ class HomeFragment : Fragment() {
                 val layout = inflater.inflate(R.layout.dialog_add_ingredient, null)
                 builder.setView(layout)
 
-                //we give suggestions of what the user can add.
-                //TODO get values from resources
-                val suggestions = arrayOf("test", "hallo", "doei")
-                val adapter = ArrayAdapter(layout.context, android.R.layout.simple_list_item_1, suggestions)
+                val spinner: Spinner = layout.findViewById(R.id.ingredients)
+                ArrayAdapter.createFromResource(
+                    layout.context,
+                    R.array.ingredients_array,
+                    android.R.layout.simple_spinner_item
+                ).also { adapter ->
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    spinner.adapter = adapter
+                }
 
-                layout.product_name.setAdapter(adapter)
                 layout.btnAdd.setOnClickListener { view ->
-                    //TODO get values from form!!
-                    val t = Ingredient("kip", 500)
+                    val t = Ingredient(spinner.selectedItem.toString(), Integer.parseInt(layout.etAmount.text.toString()))
                     ingredientsViewModel.insert(t)
                 }
 
