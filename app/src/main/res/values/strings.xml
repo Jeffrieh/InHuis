@@ -2,11 +2,13 @@
     <string name="app_name">InHuis</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_recipes">Recipes</string>
     <string name="dialog_title">Ingredienten</string>
     <string name="dialog_text">Hallo</string>
 
     <string name="product_name">Hallo</string>
     <string name="amount">Amount in grams</string>
 
+    <string name="single_recipe_title">Test</string>
+    <string name="single_recipe_text">Test text</string>
 </resources>
