@@ -12,8 +12,6 @@ import kotlinx.android.synthetic.main.single_recipe.view.*
 class RecipeAdapter (private val recipes: List<Recipe>) :
     RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
-    lateinit var context: Context
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(recipe: Recipe) {
             itemView.singleRecipeTitle.text = recipe.title
