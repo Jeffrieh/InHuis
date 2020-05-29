@@ -27,7 +27,10 @@ class RecipeAdapter (private val recipes: List<Recipe>) :
                 ingredientsMissingString = ingredientsMissingString + ", " + recipe.ingredientsMissing[i].name
             }
             itemView.singleRecipeMissingIngredients.text = ingredientsMissingString
-            Picasso.get().load(recipe.imageURL).into(itemView.singleRecipeImage)
+            Picasso.get()
+                .load(recipe.imageURL)
+                .resize(500, 500)
+                .into(itemView.singleRecipeImage)
         }
     }
 
