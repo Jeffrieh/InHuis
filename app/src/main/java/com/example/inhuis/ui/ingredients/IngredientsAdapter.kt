@@ -1,34 +1,54 @@
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
+import com.example.inhuis.ui.ingredients.IngredientsViewHolder
 import kotlinx.android.synthetic.main.ingredient_item.view.*
 
-class IngredientsAdapter(private var myDataset: List<Ingredient>) :
-    RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>() {
+class IngredientsAdapter(private var myDataset: List<Ingredient>, private val context: Context) :
+    RecyclerView.Adapter<IngredientsViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.ingredient_item, parent, false)
+    private var tracker: SelectionTracker<Long>? = null
+
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientsViewHolder =
+        IngredientsViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.ingredient_item, parent, false)
         )
-    }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(myDataset[position])
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
-
 
     override fun getItemCount() = myDataset.size
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(ingredient: Ingredient) {
-            itemView.name.text = ingredient.name
-            itemView.amount.text = "-" + ingredient.amount.toString() + "g"
-        }
-
+    fun setTracker(tracker: SelectionTracker<Long>?) {
+        this.tracker = tracker
     }
 
+    override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
+        holder.name.text = myDataset[position].name
+        holder.amount.text = myDataset[position].amount.toString()
+        val parent = holder.name.parent as LinearLayout
+
+        if (tracker!!.isSelected(position.toLong())) {
+            parent.background = ColorDrawable(
+                Color.parseColor("#80deea")
+            )
+        } else {
+            // Reset color to black if not selected
+            parent.background = ColorDrawable(Color.BLACK)
+        }
+    }
 
 }
