@@ -15,7 +15,7 @@ class RecipeAdapter (private val recipes: List<Recipe>) :
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(recipe: Recipe) {
             itemView.singleRecipeTitle.text = recipe.title
-            itemView.singleRecipeText.text = recipe.ingredients
+            itemView.singleRecipeText.text = recipe.ingredientsUsed.toString()
             itemView.singleRecipeImage.setImageResource(R.drawable.round_add_black_24dp)
         }
     }
