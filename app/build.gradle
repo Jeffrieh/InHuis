@@ -43,5 +43,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    // Volley is used for API call to the internet
     implementation 'com.android.volley:volley:1.1.1'
+    // Picasso is used for loading in the images from the urls
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

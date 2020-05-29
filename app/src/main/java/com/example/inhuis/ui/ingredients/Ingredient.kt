@@ -5,7 +5,7 @@ data class Ingredient(
     var id: Int,
     var name: String,
     var imageURL: String,
-    var amount: Int
+    var amount: Double
 
 ) {
 

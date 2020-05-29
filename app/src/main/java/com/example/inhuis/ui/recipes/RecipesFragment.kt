@@ -44,27 +44,24 @@ class RecipesFragment : Fragment() {
 
         recyclerViewRecipes.adapter = recipeAdapter
         // Populate the recipe list and notify the data set has changed.
-        for (recipe in Recipe.RECIPES) {
-            recipes.add(recipe)
-        }
-        recipeAdapter.notifyDataSetChanged()
+//        for (recipe in Recipe.RECIPES) {
+//            recipes.add(recipe)
+//        }
 
-        getData()
+        getRecipes()
 
         return root
     }
 
-    fun getData(){
+    private fun getRecipes() {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
+        // The URL to get the data
+        // TODO: make the url variables dynamic from step before this
         val url = "https://api.spoonacular.com/recipes/findByIngredients?ingredients=spaghetti&number=3&apiKey=37c8b0f2a77247fe8377c040537bc3ad"
-
-        var recipesArray: ArrayList<Recipe>? = null
 
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
-                Log.i("getData", response.toString())
-                Log.i("getData2", response.length().toString())
                 for (i in 0 until response.length()) {
                     try {
                         var jsonObject = response.getJSONObject(i)
@@ -72,41 +69,41 @@ class RecipesFragment : Fragment() {
                         var title = jsonObject.getString("title")
                         var imageURL = jsonObject.getString("image")
                         var missedIngredients = jsonObject.getJSONArray("missedIngredients")
-                        var missedIngredientsArray: ArrayList<Ingredient>? = null
+                        var missedIngredientsArray = arrayListOf<Ingredient>()
                         for(i in 0 until missedIngredients.length()){
                             try{
                                 var missedIngredientObject = missedIngredients.getJSONObject(i)
                                 var ingredientID = missedIngredientObject.getString("id").toInt()
                                 var ingredientName = missedIngredientObject.getString("name")
                                 var ingredientImageURL = missedIngredientObject.getString("image")
-                                var ingredientAmount = missedIngredientObject.getString("amount").toInt()
-                                missedIngredientsArray!!.add(Ingredient(ingredientID,ingredientName,ingredientImageURL,ingredientAmount))
+                                var ingredientAmount = missedIngredientObject.getString("amount").toDouble()
+                                missedIngredientsArray.add(Ingredient(ingredientID,ingredientName,ingredientImageURL,ingredientAmount))
                             } catch(e: JSONException) {
 
                             }
                         }
                         var usedIngredients = jsonObject.getJSONArray("usedIngredients")
-                        var usedIngredientsArray: ArrayList<Ingredient>? = null
+                        var usedIngredientsArray = arrayListOf<Ingredient>()
                         for(i in 0 until usedIngredients.length()){
                             try{
                                 var usedIngredientObject = usedIngredients.getJSONObject(i)
                                 var ingredientID = usedIngredientObject.getString("id").toInt()
                                 var ingredientName = usedIngredientObject.getString("name")
                                 var ingredientImageURL = usedIngredientObject.getString("image")
-                                var ingredientAmount = usedIngredientObject.getString("amount").toInt()
-                                usedIngredientsArray!!.add(Ingredient(ingredientID,ingredientName,ingredientImageURL,ingredientAmount))
+                                var ingredientAmount = usedIngredientObject.getString("amount").toDouble()
+                                usedIngredientsArray.add(Ingredient(ingredientID,ingredientName,ingredientImageURL,ingredientAmount))
                             } catch(e: JSONException) {
 
                             }
                         }
-                        Log.i("getData3", jsonObject.toString())
-                        Log.i("getData4", jsonObject.getString("title"))
-                        recipesArray!!.add(Recipe(id,title,imageURL,usedIngredientsArray,missedIngredientsArray))
-                        Log.i("getData4", recipesArray.toString())
+                        recipes.add(Recipe(id,title,imageURL,usedIngredientsArray,missedIngredientsArray))
                     } catch (e: JSONException) {
 
                     }
                 }
+                recipeAdapter.notifyDataSetChanged()
+                Log.i("getData", recipes.toString())
+
             },
             Response.ErrorListener { error ->
                 // TODO: Handle error
@@ -114,9 +111,6 @@ class RecipesFragment : Fragment() {
             }
         )
 
-        recipesArray = ArrayList()
         queue.add(jsonArrayRequest)
-
-        //https://gist.github.com/cblunt/162beb7ecfafa1bd2ad9
     }
 }
