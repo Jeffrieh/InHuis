@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
 android {
     dataBinding {
         enabled = true
@@ -72,3 +74,5 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
 }
+
+kapt {generateStubs = true}

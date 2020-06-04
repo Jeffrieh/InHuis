@@ -10,7 +10,7 @@ class IngredientsLookup(private val rv: RecyclerView) : ItemDetailsLookup<Long>(
             : ItemDetails<Long>? {
         val view = rv.findChildViewUnder(event.x, event.y)
         if (view != null) {
-            return (rv.getChildViewHolder(view) as IngredientsViewHolder).getItemDetails()
+            return (rv.getChildViewHolder(view) as IngredientsAdapter.IngredientsViewHolder).getItemDetails()
         }
         return null
 

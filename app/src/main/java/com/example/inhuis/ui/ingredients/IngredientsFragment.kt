@@ -1,15 +1,14 @@
 package com.example.inhuis.ui.ingredients
 
 import IngredientsAdapter
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StableIdKeyProvider
@@ -18,20 +17,51 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
+import com.example.inhuis.ui.recipes.RecipesFragment
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 
 
 class IngredientsFragment : Fragment() {
 
-//    @BindingAdapter(value = ["setAdapter"])
-//    fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>) {
-//        this.run {
-//            this.setHasFixedSize(true)
-//            this.adapter = adapter
-//        }
-//    }
+    var actionMode: ActionMode? = null
+
+    inner class ActionModeCallback : ActionMode.Callback {
+        var shouldResetRecyclerView = true
+        override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            when (item?.getItemId()) {
+                R.id.action_get_recipes -> {
+                    actionMode?.finish();
+                    parentFragment?.findNavController()?.navigate(R.id.navigation_notifications)
+                    return true
+                }
+            }
+            return false
+        }
+
+        override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            val inflater = mode?.getMenuInflater()
+            inflater?.inflate(R.menu.action_mode_menu, menu)
+            return true
+        }
+
+        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            menu?.findItem(R.id.action_get_recipes)?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            return true
+        }
+
+        override fun onDestroyActionMode(mode: ActionMode?) {
+//            if (shouldResetRecyclerView) {
+//                myAdapter?.selectedIds?.clear()
+//                myAdapter?.notifyDataSetChanged()
+//            }
+//            isMultiSelectOn = false
+              actionMode = null
+//            shouldResetRecyclerView = true
+        }
+    }
 
     private var tracker: SelectionTracker<Long>? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +80,7 @@ class IngredientsFragment : Fragment() {
             val adapter = IngredientsAdapter(ingredients, root.context)
             recyclerView.adapter = adapter
 
+            //we create a new tracker everytime the observer updates, really inefficient.
             tracker = SelectionTracker.Builder(
                 "selection-1",
                 recyclerView,
@@ -62,10 +93,19 @@ class IngredientsFragment : Fragment() {
 
             adapter.setTracker(tracker)
 
+            tracker?.addObserver(
+                object : SelectionTracker.SelectionObserver<Long>() {
+                    override fun onSelectionChanged() {
+                        val items = tracker?.selection!!.size();
+                        if (items > 0) {
+                            actionMode = view?.startActionMode(ActionModeCallback());
+                        }
+                    }
+                })
         })
-
 
         return root
 
     }
 }
+
