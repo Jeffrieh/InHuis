@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
+import com.example.inhuis.helpers.Communicator
 import com.example.inhuis.ui.recipes.RecipesFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
@@ -27,14 +28,18 @@ class IngredientsFragment : Fragment() {
 
     var actionMode: ActionMode? = null
 
+    lateinit var comm: Communicator
+
     inner class ActionModeCallback : ActionMode.Callback {
         var shouldResetRecyclerView = true
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+            comm = activity as Communicator
             when (item?.getItemId()) {
                 R.id.action_get_recipes -> {
-                    actionMode?.finish();
+                    comm.passDataCom("test bericht")
+                    //actionMode?.finish();
                     //TODO : redirect to other fragment and pass ingredients data
-                    parentFragment?.findNavController()?.navigate(R.id.navigation_notifications)
+                    //parentFragment?.findNavController()?.navigate(R.id.navigation_notifications)
                     return true
                 }
             }

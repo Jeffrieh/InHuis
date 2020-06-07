@@ -5,23 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
-import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.ui.ingredients.Ingredient
-import com.example.inhuis.ui.ingredients.IngredientsFragment
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import org.json.JSONException
 
@@ -34,11 +29,16 @@ class RecipesFragment() : Fragment() {
     private val recipes = arrayListOf<Recipe>()
     private val recipeAdapter = RecipeAdapter(recipes)
 
+    var inputText: String? = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        inputText = arguments?.getString("input_txt")
+        Log.i("getDataStrText", "Test: " + inputText)
+
         recipesViewModel =
             ViewModelProviders.of(this).get(RecipesViewModel::class.java)
 
@@ -57,10 +57,10 @@ class RecipesFragment() : Fragment() {
 
 //        val model = root?.let { ViewModelProviders.of(this).get(IngredientsViewModel::class.java) }
         val model =
-            ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
+            ViewModelProvider { requireActivity().viewModelStore }.get(IngredientsViewModel::class.java);
 
-        println("observing");
-        model?.selectedIngredients.observe(viewLifecycleOwner, Observer { list -> println("test" + list) });
+        //println("observing");
+        //model?.selectedIngredients.observe(viewLifecycleOwner, Observer { list -> println("test" + list) });
 
         val recyclerViewRecipes: RecyclerView = root.findViewById(R.id.rvRecipes)
         recyclerViewRecipes.layoutManager = LinearLayoutManager(activity)
@@ -76,6 +76,7 @@ class RecipesFragment() : Fragment() {
 
         return root
     }
+
 
     private fun getRecipes() {
         // Instantiate the RequestQueue.
