@@ -42,25 +42,17 @@ class RecipesFragment() : Fragment() {
         recipesViewModel =
             ViewModelProviders.of(this).get(RecipesViewModel::class.java)
 
-//        ingredientsViewModel =
-//            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
-//        val textView: TextView = root.findViewById(R.id.text_recipes)
-//        recipesViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
 
         val viewModel = activity?.run {
             ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-
-//        val model = root?.let { ViewModelProviders.of(this).get(IngredientsViewModel::class.java) }
-        val model =
+        val ingredientsViewModel =
             ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
 
-        println("observing");
-        model?.selectedIngredients.observe(viewLifecycleOwner, Observer { list -> println("test" + list) });
+        // returns a list of Ingredients()
+        println(ingredientsViewModel.selected);
 
         val recyclerViewRecipes: RecyclerView = root.findViewById(R.id.rvRecipes)
         recyclerViewRecipes.layoutManager = LinearLayoutManager(activity)

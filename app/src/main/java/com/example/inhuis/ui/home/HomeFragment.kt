@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var textView: AutoCompleteTextView;
-    private var drwbl : Int = 0;
+    private var drwbl: Int = 0;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +45,6 @@ class HomeFragment : Fragment() {
         ingredientsViewModel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-
 
         val recyclerView: RecyclerView = root.findViewById(R.id.rvIngredients)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
@@ -98,7 +97,10 @@ class HomeFragment : Fragment() {
                 val arrayAdapter = ACIngredientsAdapter(
                     requireActivity(), R.layout.custom_autocomplete_layout,
                     listOf<Ingredient>(
-                        Ingredient("Apple", 0, R.drawable.apple)
+                        Ingredient("Apple", 0, R.drawable.apple),
+                        Ingredient("Banana", 0, R.drawable.banana),
+                        Ingredient("Garlic", 0, R.drawable.banana),
+                        Ingredient("Chicken", 0, R.drawable.banana)
                     )
                 )
 

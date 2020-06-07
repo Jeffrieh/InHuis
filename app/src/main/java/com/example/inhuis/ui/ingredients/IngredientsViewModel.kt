@@ -14,17 +14,13 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
     private val repository: IngredientRepository
 
     val ingredients: LiveData<List<Ingredient>>
-
-    val selectedIngredients: MutableLiveData<Selection<Long>> = MutableLiveData<Selection<Long>>()
+    var selected : MutableList<Ingredient>
 
     init {
         val ingredientDao = IngredientDatabase.getDatabase(application).ingredientDao()
         repository = IngredientRepository(ingredientDao)
         ingredients = repository.ingredients
-    }
-
-    fun sync(sel: Selection<Long>) {
-        selectedIngredients.postValue(sel)
+        selected = ArrayList()
     }
 
     fun insert(ingredient: Ingredient) = viewModelScope.launch(Dispatchers.IO) {
@@ -33,6 +29,10 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
 
     fun delete(ingredient: Ingredient) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(ingredient)
+    }
+
+    fun setSelected(selectedIngredients : ArrayList<Ingredient>){
+        selected = selectedIngredients;
     }
 
 

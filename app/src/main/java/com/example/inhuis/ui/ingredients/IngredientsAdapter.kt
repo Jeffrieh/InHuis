@@ -31,6 +31,10 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
         return position.toLong()
     }
 
+    fun getItemAt(position: Int): Ingredient{
+        return myDataset[position];
+    }
+
     override fun getItemCount() = myDataset.size
 
     fun setTracker(tracker: SelectionTracker<Long>?) {
