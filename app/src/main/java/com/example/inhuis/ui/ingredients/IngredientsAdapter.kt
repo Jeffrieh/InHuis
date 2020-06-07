@@ -39,6 +39,7 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Ingredient, selected: Boolean) = with(itemView) {
+            itemView.imageView.setImageDrawable(context.getDrawable(item.image));
             itemView.tvName.text = item.name;
             itemView.tvAmount.text = item.amount.toString();
 

@@ -27,6 +27,8 @@ class IngredientsFragment : Fragment() {
 
     var actionMode: ActionMode? = null
 
+
+
     inner class ActionModeCallback : ActionMode.Callback {
         var shouldResetRecyclerView = true
         override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {

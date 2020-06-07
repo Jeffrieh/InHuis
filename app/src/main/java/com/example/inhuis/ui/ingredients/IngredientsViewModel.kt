@@ -31,4 +31,9 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
         repository.insert(ingredient)
     }
 
+    fun delete(ingredient: Ingredient) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(ingredient)
+    }
+
+
 }

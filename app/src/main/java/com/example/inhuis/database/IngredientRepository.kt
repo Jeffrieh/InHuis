@@ -9,4 +9,8 @@ class IngredientRepository(private val ingredientDao: IngredientDao) {
     suspend fun insert(ingredient: Ingredient) {
         ingredientDao.insert(ingredient)
     }
+
+    suspend fun delete(ingredient: Ingredient) {
+        ingredientDao.delete(ingredient)
+    }
 }
