@@ -15,6 +15,7 @@ import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.ui.recipes.RecipesFragment
@@ -32,6 +33,7 @@ class IngredientsFragment : Fragment() {
             when (item?.getItemId()) {
                 R.id.action_get_recipes -> {
                     actionMode?.finish();
+                    //TODO : redirect to other fragment and pass ingredients data
                     parentFragment?.findNavController()?.navigate(R.id.navigation_notifications)
                     return true
                 }
@@ -56,7 +58,7 @@ class IngredientsFragment : Fragment() {
 //                myAdapter?.notifyDataSetChanged()
 //            }
 //            isMultiSelectOn = false
-              actionMode = null
+            actionMode = null
 //            shouldResetRecyclerView = true
         }
     }
@@ -95,7 +97,11 @@ class IngredientsFragment : Fragment() {
 
             tracker?.addObserver(
                 object : SelectionTracker.SelectionObserver<Long>() {
+                    override fun onItemStateChanged(key: Long, selected: Boolean) {}
+
                     override fun onSelectionChanged() {
+                        ingredientsViewModel.sync(tracker?.selection!!);
+                        println(ingredientsViewModel.selectedIngredients.value);
                         val items = tracker?.selection!!.size();
                         if (items > 0) {
                             actionMode = view?.startActionMode(ActionModeCallback());
