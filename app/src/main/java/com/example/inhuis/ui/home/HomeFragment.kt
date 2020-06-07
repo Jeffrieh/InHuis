@@ -1,7 +1,9 @@
 package com.example.inhuis.ui.home
 
 import android.app.AlertDialog
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,12 +18,18 @@ import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.database.IngredientRepository
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.dialog_add_ingredient.*
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.etAmount
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil.setContentView
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
@@ -73,11 +81,8 @@ class HomeFragment : Fragment() {
 
         }
 
-
-
-
         return root
-    }
 
+    }
 
 }

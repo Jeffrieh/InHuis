@@ -73,6 +73,7 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$rootProject.roomVersion"
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
 }
 
 kapt {generateStubs = true}
