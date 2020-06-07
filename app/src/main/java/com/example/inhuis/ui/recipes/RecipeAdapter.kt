@@ -1,10 +1,13 @@
 package com.example.inhuis.ui.recipes
 
+import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.R
+import com.example.inhuis.helpers.FontManager
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.single_recipe.view.*
 
@@ -18,13 +21,18 @@ class RecipeAdapter (private val recipes: List<Recipe>) :
             var numberOfUsedIngredients = recipe.ingredientsUsed.size
             var ingredientsUsedString = ""
             for (i in 0 until numberOfUsedIngredients){
-                ingredientsUsedString = ingredientsUsedString + ", " + recipe.ingredientsUsed[i].name
+                ingredientsUsedString += recipe.ingredientsUsed[i].name
+                ingredientsUsedString += " " + R.string.fa_check_solid
+                ingredientsUsedString += " " + "\uf00c"
+                ingredientsUsedString += "\n"
             }
             itemView.singleRecipeUsedIngredients.text = ingredientsUsedString
             var numberOfMissingIngredients = recipe.ingredientsMissing.size
             var ingredientsMissingString = ""
             for (i in 0 until numberOfMissingIngredients){
-                ingredientsMissingString = ingredientsMissingString + ", " + recipe.ingredientsMissing[i].name
+                ingredientsMissingString += recipe.ingredientsMissing[i].name
+                ingredientsMissingString += "\n"
+
             }
             itemView.singleRecipeMissingIngredients.text = ingredientsMissingString
             Picasso.get()

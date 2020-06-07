@@ -1,9 +1,8 @@
 package com.example.inhuis.ui.home
 
+import HomeAdapter
 import android.app.AlertDialog
-import android.app.Activity
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,22 +13,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
-import com.example.inhuis.database.IngredientRepository
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
-import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.android.synthetic.main.dialog_add_ingredient.*
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.etAmount
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.activity_main.*
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil.setContentView
-import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
-class HomeFragment : Fragment(){
+class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
@@ -40,14 +34,21 @@ class HomeFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
 
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         ingredientsViewModel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
 
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        val recyclerView: RecyclerView = root.findViewById(R.id.rvIngredients)
+        recyclerView.layoutManager = LinearLayoutManager(root.context)
+        recyclerView.setHasFixedSize(true)
+
+//        val ingredients = listOf<Ingredient>(Ingredient("kip", 5));
+
+//        recyclerView.adapter = HomeAdapter(ingredients, root.context);
+
+        ingredientsViewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredients ->
+            val adapter = HomeAdapter(ingredients, root.context);
+            recyclerView.adapter = adapter;
         })
 
         //Floating action button on the home screen.
@@ -81,8 +82,11 @@ class HomeFragment : Fragment(){
 
         }
 
-        return root
 
+
+
+        return root
     }
+
 
 }

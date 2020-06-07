@@ -41,7 +41,7 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
         fun bind(item: Ingredient, selected: Boolean) = with(itemView) {
             itemView.tvName.text = item.name;
             itemView.tvAmount.text = item.amount.toString();
-            System.out.println(selected)
+
             if (selected) {
                 itemView.background = ColorDrawable(
                     Color.parseColor("#80deea")
@@ -62,16 +62,6 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
         holder.bind(myDataset[position], tracker!!.isSelected(position.toLong()));
-//        val parent = holder.name.parent as LinearLayout
-//
-//        if (tracker!!.isSelected(position.toLong())) {
-//            parent.background = ColorDrawable(
-//                Color.parseColor("#80deea")
-//            )
-//        } else {
-//            // Reset color to black if not selected
-//            parent.background = ColorDrawable(Color.BLACK)
-//        }
     }
 
 }
