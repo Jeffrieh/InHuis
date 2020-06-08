@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.ingredient_item.view.*
 class HomeAdapter(private var myDataset: List<Ingredient>, private val context: Context) :
     RecyclerView.Adapter<HomeAdapter.HomeAdapterViewHolder>() {
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapterViewHolder =
         HomeAdapterViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.ingredient_item, parent, false)
@@ -30,7 +31,12 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
     inner class HomeAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Ingredient) = with(itemView) {
             itemView.tvName.text = item.name;
-            itemView.tvAmount.text = " - "+item.amount.toString() + "g";
+            itemView.imageView.setImageDrawable(context.getDrawable(item.image))
+            itemView.tvAmount.text = " - " + item.amount.toString() + "g";
+        }
+
+        public fun getIngredientAt(position: Int): Ingredient {
+            return myDataset[position];
         }
 
         fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> =

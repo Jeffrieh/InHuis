@@ -31,6 +31,10 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
         return position.toLong()
     }
 
+    fun getItemAt(position: Int): Ingredient{
+        return myDataset[position];
+    }
+
     override fun getItemCount() = myDataset.size
 
     fun setTracker(tracker: SelectionTracker<Long>?) {
@@ -39,6 +43,7 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Ingredient, selected: Boolean) = with(itemView) {
+            itemView.imageView.setImageDrawable(context.getDrawable(item.image));
             itemView.tvName.text = item.name;
             itemView.tvAmount.text = item.amount.toString();
 

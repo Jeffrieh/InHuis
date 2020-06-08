@@ -4,6 +4,7 @@ import IngredientsAdapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.*
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,6 +22,7 @@ import com.example.inhuis.database.Ingredient
 import com.example.inhuis.ui.recipes.RecipesFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import java.util.ArrayList
 
 
 class IngredientsFragment : Fragment() {
@@ -34,6 +36,10 @@ class IngredientsFragment : Fragment() {
                 R.id.action_get_recipes -> {
                     actionMode?.finish();
                     //TODO : redirect to other fragment and pass ingredients data
+
+//                    var bundle = Bundle()
+//                    bundle.putParcelableArrayList("ingredients", ArrayList(selectedIngredients))
+
                     parentFragment?.findNavController()?.navigate(R.id.navigation_notifications)
                     return true
                 }
@@ -70,7 +76,7 @@ class IngredientsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val ingredientsViewModel by viewModels<IngredientsViewModel>()
+        val ingredientsViewModel by requireActivity().viewModels<IngredientsViewModel>()
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_dashboard)
 
@@ -100,8 +106,14 @@ class IngredientsFragment : Fragment() {
                     override fun onItemStateChanged(key: Long, selected: Boolean) {}
 
                     override fun onSelectionChanged() {
-                        ingredientsViewModel.sync(tracker?.selection!!);
-                        println(ingredientsViewModel.selectedIngredients.value);
+                        var tl = ArrayList<Ingredient>();
+                        tracker?.selection!!.forEach {
+                            val ingredient = adapter.getItemAt(it.toInt());
+                            tl.add(ingredient);
+                        }
+
+                        ingredientsViewModel.setSelected(tl);
+
                         val items = tracker?.selection!!.size();
                         if (items > 0) {
                             actionMode = view?.startActionMode(ActionModeCallback());
