@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.graphics.toColor
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
@@ -45,14 +46,16 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
         fun bind(item: Ingredient, selected: Boolean) = with(itemView) {
             itemView.imageView.setImageDrawable(context.getDrawable(item.image));
             itemView.tvName.text = item.name;
-            itemView.tvAmount.text = item.amount.toString();
+            itemView.tvAmount.text = " - " + item.amount.toString() + "g"
 
             if (selected) {
                 itemView.background = ColorDrawable(
                     Color.parseColor("#80deea")
                 )
             } else {
-                itemView.background = ColorDrawable(Color.BLACK)
+                itemView.background = ColorDrawable(
+                    resources.getColor(R.color.colorPrimary)
+                )
             }
             //setOnClickListener { listener(item) }
         }

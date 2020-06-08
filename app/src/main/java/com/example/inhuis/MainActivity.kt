@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +18,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
+
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.apply {
+            // Set toolbar title/app title
+            title = "Toolbar Title"
+
+            // Set action bar/toolbar sub title
+            subtitle = "Toolbar sub title"
+
+
+            toolbar_title.text = "testje"
+            // Display the app icon in action bar/toolbar
+            setDisplayShowHomeEnabled(true)
+            setDisplayUseLogoEnabled(true)
+        }
 
         val model: IngredientsViewModel by viewModels();
 

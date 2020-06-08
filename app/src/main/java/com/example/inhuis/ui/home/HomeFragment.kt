@@ -29,7 +29,6 @@ import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
 import kotlinx.android.synthetic.main.ingredient_item.view.*
 
 
-@Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
