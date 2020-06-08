@@ -54,7 +54,7 @@ class RecipeDetailFragment() : Fragment() {
 
         // TURN THIS OFF FOR LIVE DATA AND ON FOR MOCKUP DATA
 //        titleText.text = recipe.title
-//        ingredientsTitleText.text = "Ingredients ( ${recipe.numberOfServings} servings )"
+//        ingredientsTitleText.text = "Ingredients ( $recipe.numberOfServings servings )"
 //        var numberOfIngredients = recipe.ingredients.size
 //        var ingredientsString = ""
 //        for (i in 0 until numberOfIngredients){
@@ -81,7 +81,7 @@ class RecipeDetailFragment() : Fragment() {
         // TODO: get id from previous step
         // TODO: error checking in the JSON, because id was null for instance
         val url =
-            "https://api.spoonacular.com/recipes/${recipeID}/information?includeNutrition=false&apiKey=37c8b0f2a77247fe8377c040537bc3ad"
+            "https://api.spoonacular.com/recipes/$recipeID/information?includeNutrition=false&apiKey=37c8b0f2a77247fe8377c040537bc3ad"
 
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null,
             Response.Listener { response ->

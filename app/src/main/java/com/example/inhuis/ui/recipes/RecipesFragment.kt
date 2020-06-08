@@ -52,7 +52,19 @@ class RecipesFragment() : Fragment() {
             ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
 
         // returns a list of Ingredients()
+        var listOfIngredients = ingredientsViewModel.selected
         println(ingredientsViewModel.selected);
+        Log.i("getData", listOfIngredients.toString())
+        var ingredientsString = ""
+        for (i in 0 until listOfIngredients.count()){
+            ingredientsString += if(i == 0){
+                listOfIngredients[i].name
+            }else {
+                "," + listOfIngredients[i].name
+            }
+        }
+        ingredientsString = ingredientsString.toLowerCase()
+        Log.i("getData", ingredientsString)
 
         val recyclerViewRecipes: RecyclerView = root.findViewById(R.id.rvRecipes)
         recyclerViewRecipes.layoutManager = LinearLayoutManager(activity)
@@ -64,18 +76,24 @@ class RecipesFragment() : Fragment() {
             recipes.add(recipe)
         }
         // TURN THIS ON FOR LIVE DATA FROM THE API: THIS COSTS API POINTS SO BE CAREFULL WITH IT (150 points per day are available and each request is 1 point + 0.1 point per item returned)
-        //getRecipes()
+        //getRecipes(ingredientsString)
 
         return root
     }
 
-    private fun getRecipes() {
+    private fun getRecipes(ingredientsString: String) {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
         // The URL to get the data
-        // TODO: make the url variables dynamic from step before this
+        // ingredients	string	apples,flour,sugar	A comma-separated list of ingredients that the recipes should contain.
+        // number	number	10	The maximum number of recipes to return (between 1 and 100). Defaults to 10.
+        // limitLicense	boolean	true	Whether the recipes should have an open license that allows display with proper attribution.
+        // ranking	number	1	Whether to maximize used ingredients (1) or minimize missing ingredients (2) first.
+        // ignorePantry	boolean	true	Whether to ignore typical pantry items, such as water, salt, flour, etc.
         val url =
-            "https://api.spoonacular.com/recipes/findByIngredients?ingredients=spaghetti&number=3&apiKey=37c8b0f2a77247fe8377c040537bc3ad"
+            "https://api.spoonacular.com/recipes/findByIngredients?ingredients=$ingredientsString&number=3&ranking=1&apiKey=37c8b0f2a77247fe8377c040537bc3ad"
+
+        Log.i("getData", url)
 
         val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null,
             Response.Listener { response ->
