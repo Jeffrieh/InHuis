@@ -20,6 +20,5 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.inhuis.ui.recipes.RecipesFragment"
-        android:label="@string/title_recipes"
-        tools:layout="@layout/fragment_recipes" />
+        android:label="@string/title_recipes" />
 </navigation>
