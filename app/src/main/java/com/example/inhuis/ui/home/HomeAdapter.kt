@@ -35,7 +35,6 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
                 itemView.imageView.setImageDrawable(context.getDrawable(item.image))
                 itemView.tvAmount.text = " - " + item.amount.toString() + "g";
             }catch(e : Exception){
-                itemView.imageView.setImageDrawable(context.getDrawable(R.drawable.ic_notifications_black_24dp))
                 println(e.message);
             }
         }

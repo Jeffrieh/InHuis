@@ -29,11 +29,13 @@ import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
 import kotlinx.android.synthetic.main.ingredient_item.view.*
 
 
+@Suppress("TYPE_INFERENCE_ONLY_INPUT_TYPES_WARNING")
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var textView: AutoCompleteTextView;
+    private lateinit var allowedIngredients: List<Ingredient>;
     private var drwbl: Int = 0;
 
     override fun onCreateView(
@@ -43,6 +45,14 @@ class HomeFragment : Fragment() {
     ): View? {
 
         ingredientsViewModel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+
+        allowedIngredients = listOf<Ingredient>(
+            Ingredient("Apple", 0, R.drawable.apple),
+            Ingredient("Banana", 0, R.drawable.banana),
+            Ingredient("Garlic", 0, R.drawable.banana),
+            Ingredient("Chicken", 0, R.drawable.apple)
+        );
+
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -96,22 +106,16 @@ class HomeFragment : Fragment() {
 
                 val arrayAdapter = ACIngredientsAdapter(
                     requireActivity(), R.layout.custom_autocomplete_layout,
-                    listOf<Ingredient>(
-                        Ingredient("Apple", 0, R.drawable.apple),
-                        Ingredient("Banana", 0, R.drawable.banana),
-                        Ingredient("Garlic", 0, R.drawable.banana),
-                        Ingredient("Chicken", 0, R.drawable.banana)
-                    )
+                    allowedIngredients
                 )
 
                 textView = layout.findViewById(R.id.tvingredient) as AutoCompleteTextView
                 textView.setAdapter(arrayAdapter)
                 textView.setOnClickListener { textView.showDropDown() }
 
-
                 textView.setOnItemClickListener { parent, view, position, id ->
                     textView.setText(arrayAdapter.getItem(position)?.name)
-                    drwbl = arrayAdapter.getItem(position)?.image!!
+//                    drwbl = arrayAdapter.getItem(position)?.image!!
                 }
 
                 var text: String
@@ -121,7 +125,7 @@ class HomeFragment : Fragment() {
                         val t = Ingredient(
                             textView.text.toString(),
                             Integer.parseInt(layout.etAmount.text.toString()),
-                            drwbl!!
+                            allowedIngredients.find { ingredient -> textView.text.toString().equals(ingredient.name) }!!.image
                         )
 
                         ingredientsViewModel.insert(t)
@@ -152,8 +156,8 @@ class HomeFragment : Fragment() {
 
             textView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
-                    val t = resources.getStringArray(R.array.ingredients_array);
-                    valid = t.contains(s.toString());
+                    val names = allowedIngredients.map { e -> e.name }
+                    valid = names.contains(s.toString());
                     alertDialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = valid;
                 }
 

@@ -18,6 +18,10 @@ class ACIngredientsAdapter(
         return super.getItem(position);
     }
 
+    fun getListOfItems() : List<Ingredient>{
+        return ingredients;
+    }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         var row: View? = convertView;
         val inflater: LayoutInflater = LayoutInflater.from(context);
