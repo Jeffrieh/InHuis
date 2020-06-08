@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -107,6 +108,9 @@ class HomeFragment : Fragment() {
                     requireActivity(), R.layout.custom_autocomplete_layout,
                     allowedIngredients
                 )
+
+                Log.i("checkArray", arrayAdapter.toString())
+                Log.i("checkArray", "TEST bericht")
 
                 textView = layout.findViewById(R.id.tvingredient) as AutoCompleteTextView
                 textView.setAdapter(arrayAdapter)
