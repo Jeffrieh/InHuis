@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">InHuis</string>
+    <string name="app_name">InHome</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_recipes">Recipes</string>
-    <string name="dialog_title">Ingredienten</string>
+    <string name="dialog_title">Ingredients</string>
     <string name="dialog_text">Hallo</string>
 
     <string name="product_name">Hallo</string>

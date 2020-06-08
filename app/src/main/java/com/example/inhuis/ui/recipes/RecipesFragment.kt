@@ -67,11 +67,11 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
         recyclerViewRecipes.adapter = recipeAdapter
         // Populate the recipe list and notify the data set has changed.
         // TURN THIS ON FOR MOCKUP DATA
-        for (recipe in Recipe.RECIPES) {
-            recipes.add(recipe)
-        }
+//        for (recipe in Recipe.RECIPES) {
+//            recipes.add(recipe)
+//        }
         // TURN THIS ON FOR LIVE DATA FROM THE API: THIS COSTS API POINTS SO BE CAREFULL WITH IT (150 points per day are available and each request is 1 point + 0.1 point per item returned)
-        //getRecipes(ingredientsString)
+        getRecipes(ingredientsString)
 
         return root
     }

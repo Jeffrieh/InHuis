@@ -38,8 +38,8 @@ class RecipeDetailFragment() : Fragment() {
             RecipesViewModel::class.java);
 
         //get the selected recipe id via :
-        println(recipesViewModel.selectedRecipeId)
-        
+        var recipeID = recipesViewModel.selectedRecipeId
+        Log.i("getData", recipesViewModel.selectedRecipeId.toString())
 
         val root = inflater.inflate(R.layout.fragment_recipedetail, container, false)
 
@@ -54,10 +54,6 @@ class RecipeDetailFragment() : Fragment() {
 
         // TURN THIS OFF FOR LIVE DATA AND ON FOR MOCKUP DATA
         // recipe = RecipeDetail.RECIPE
-
-        // TURN THIS OFF FOR MOCKUP DATA AND TURN THIS ON FOR LIVE DATA FROM THE API: THIS COSTS API POINTS SO BE CAREFULL WITH IT (150 points per day are available and each request is 1 point + 0.1 point per item returned)
-        // getRecipe(532783, root)
-        getRecipe(716429, root)
 
         // TURN THIS OFF FOR LIVE DATA AND ON FOR MOCKUP DATA
 //        titleText.text = recipe.title
@@ -78,6 +74,9 @@ class RecipeDetailFragment() : Fragment() {
 //            .resize(500, 500)
 //            .into(image)
 
+        // TURN THIS OFF FOR MOCKUP DATA AND TURN THIS ON FOR LIVE DATA FROM THE API: THIS COSTS API POINTS SO BE CAREFULL WITH IT (150 points per day are available and each request is 1 point + 0.1 point per item returned)
+        getRecipe(recipeID, root)
+
         return root
     }
 
@@ -85,7 +84,6 @@ class RecipeDetailFragment() : Fragment() {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(context)
         // The URL to get the data
-        // TODO: get id from previous step
         // TODO: error checking in the JSON, because id was null for instance
         val url =
             "https://api.spoonacular.com/recipes/$recipeID/information?includeNutrition=false&apiKey=37c8b0f2a77247fe8377c040537bc3ad"
@@ -158,12 +156,11 @@ class RecipeDetailFragment() : Fragment() {
                         ingredientsText.text = ingredientsString
                         summaryText.text = recipe.summary
                         instructionsText.text = recipe.instructions
-                        timeText.text = recipe.timeToMake
+                        timeText.text = recipe.timeToMake + " minutes"
                         Picasso.get()
                             .load(recipe.imageURL)
                             .resize(500, 500)
                             .into(image)
-
 
                     } catch (e: JSONException) {
                         Log.e("getData2", e.toString())
