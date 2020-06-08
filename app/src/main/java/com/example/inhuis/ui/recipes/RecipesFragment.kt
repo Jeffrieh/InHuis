@@ -5,61 +5,56 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.AdapterView
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.Request
-import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.ui.ingredients.Ingredient
-import com.example.inhuis.ui.ingredients.IngredientsFragment
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import org.json.JSONException
 
 
-class RecipesFragment() : Fragment() {
+class RecipesFragment() : Fragment(), OnItemClickListener {
 
     private lateinit var recipesViewModel: RecipesViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
 
     private val recipes = arrayListOf<Recipe>()
-    private val recipeAdapter = RecipeAdapter(recipes)
+    private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        recipesViewModel =
-            ViewModelProviders.of(this).get(RecipesViewModel::class.java)
+
+
+        recipeAdapter = RecipeAdapter(recipes, this);
 
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        val viewModel = activity?.run {
-            ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-
-        val ingredientsViewModel =
-            ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
+        ingredientsViewModel = ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
+        recipesViewModel = ViewModelProvider({ requireActivity().viewModelStore }).get(RecipesViewModel::class.java);
 
         // returns a list of Ingredients()
         var listOfIngredients = ingredientsViewModel.selected
         println(ingredientsViewModel.selected);
         Log.i("getData", listOfIngredients.toString())
         var ingredientsString = ""
-        for (i in 0 until listOfIngredients.count()){
-            ingredientsString += if(i == 0){
+        for (i in 0 until listOfIngredients.count()) {
+            ingredientsString += if (i == 0) {
                 listOfIngredients[i].name
-            }else {
+            } else {
                 "," + listOfIngredients[i].name
             }
         }
@@ -172,4 +167,11 @@ class RecipesFragment() : Fragment() {
 
         queue.add(jsonArrayRequest)
     }
+
+    override fun onItemClicked(recipe: Recipe) {
+        this.recipesViewModel.selectedRecipeId = recipe.id;
+        System.out.println(this.recipesViewModel.selectedRecipeId);
+        parentFragment?.findNavController()?.navigate(R.id.navigation_itemDetail)
+    }
+
 }

@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class RecipesViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is recipes Fragment"
+    var selectedRecipeId : Int = 0;
+    fun select(recipeId: Int) {
+        selectedRecipeId = recipeId
     }
-
-    val text: LiveData<String> = _text
 }

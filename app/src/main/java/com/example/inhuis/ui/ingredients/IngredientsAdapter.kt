@@ -52,7 +52,7 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
             }catch(e: Exception){
                 Log.e("error", e.toString())
             }
-            
+
             if (selected) {
                 itemView.background = ColorDrawable(
                     Color.parseColor("#80deea")
