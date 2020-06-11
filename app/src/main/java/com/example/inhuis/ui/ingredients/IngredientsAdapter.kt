@@ -1,11 +1,13 @@
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.graphics.toColor
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +33,10 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
         return position.toLong()
     }
 
+    fun getItemAt(position: Int): Ingredient{
+        return myDataset[position];
+    }
+
     override fun getItemCount() = myDataset.size
 
     fun setTracker(tracker: SelectionTracker<Long>?) {
@@ -39,15 +45,22 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Ingredient, selected: Boolean) = with(itemView) {
-            itemView.tvName.text = item.name;
-            itemView.tvAmount.text = item.amount.toString();
+            try {
+                itemView.imageView.setImageDrawable(context.getDrawable(item.image));
+                itemView.tvName.text = item.name;
+                itemView.tvAmount.text = item.amount.toString();
+            }catch(e: Exception){
+                Log.e("error", e.toString())
+            }
 
             if (selected) {
                 itemView.background = ColorDrawable(
                     Color.parseColor("#80deea")
                 )
             } else {
-                itemView.background = ColorDrawable(Color.BLACK)
+                itemView.background = ColorDrawable(
+                    resources.getColor(R.color.colorPrimary)
+                )
             }
             //setOnClickListener { listener(item) }
         }

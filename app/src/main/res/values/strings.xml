@@ -11,6 +11,8 @@
 
     <string name="single_recipe_title">Test</string>
     <string name="single_recipe_text">Test text</string>
+    <string name="single_recipe_summary_title">Summary</string>
+    <string name="single_recipe_instructions_title">Instructions</string>
 
     <string-array name="ingredients_array">
         <item>Apple</item>
