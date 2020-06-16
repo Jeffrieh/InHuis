@@ -19,18 +19,12 @@ class ACIngredientsAdapter(
     private var suggestions: List<Ingredient> = listOf()
 
     override fun getItem(position: Int): Ingredient? {
-        return super.getItem(position);
+        return suggestions[position]
     }
-
 
     override fun getCount(): Int {
         return suggestions.size
     }
-
-    fun getListOfItems(): List<Ingredient> {
-        return ingredients;
-    }
-
 
     override fun getFilter(): Filter {
         return object : Filter() {
