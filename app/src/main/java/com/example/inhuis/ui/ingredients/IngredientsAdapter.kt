@@ -5,17 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.graphics.toColor
+import androidx.core.view.isVisible
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import kotlinx.android.synthetic.main.ingredient_item.view.*
 
-class IngredientsAdapter(private var myDataset: List<Ingredient>, private val context: Context) :
+class IngredientsAdapter(private var ingredients: List<Ingredient>, private val context: Context) :
     RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
 
     private var tracker: SelectionTracker<Long>? = null
@@ -33,27 +32,39 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
         return position.toLong()
     }
 
-    fun getItemAt(position: Int): Ingredient{
-        return myDataset[position];
+    fun updateItems(ingredients: List<Ingredient>) {
+        this.ingredients = ingredients
     }
 
-    override fun getItemCount() = myDataset.size
+    fun getItemAt(position: Int): Ingredient {
+        return ingredients[position];
+    }
+
+    override fun getItemCount() = ingredients.size
 
     fun setTracker(tracker: SelectionTracker<Long>?) {
         this.tracker = tracker
     }
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Ingredient, selected: Boolean) = with(itemView) {
+        fun bind(item: Ingredient, selected: Boolean?) = with(itemView) {
             try {
-                itemView.imageView.setImageDrawable(context.getDrawable(item.image));
+
+                itemView.setOnClickListener {
+                    println("check!")
+                    println(item.checked)
+                    item.seChecked(!item.checked)
+                    itemView.ivCheck.visibility = if (item.checked) View.VISIBLE else View.GONE
+                }
+
+                Glide.with(context).load(item.image).into(itemView.imageView)
                 itemView.tvName.text = item.name;
-                itemView.tvAmount.text = item.amount.toString();
-            }catch(e: Exception){
+                itemView.tvAmount.text = " - " + item.amount.toString() + "g"
+            } catch (e: Exception) {
                 Log.e("error", e.toString())
             }
 
-            if (selected) {
+            if (selected != null && selected) {
                 itemView.background = ColorDrawable(
                     Color.parseColor("#80deea")
                 )
@@ -74,7 +85,7 @@ class IngredientsAdapter(private var myDataset: List<Ingredient>, private val co
     }
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
-        holder.bind(myDataset[position], tracker!!.isSelected(position.toLong()));
+        holder.bind(ingredients[position], tracker?.isSelected(position.toLong()));
     }
 
 }

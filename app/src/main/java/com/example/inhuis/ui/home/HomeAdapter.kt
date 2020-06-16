@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.selection.ItemDetailsLookup
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import kotlinx.android.synthetic.main.ingredient_item.view.*
@@ -32,7 +33,8 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
         fun bind(item: Ingredient) = with(itemView) {
             try{
                 itemView.tvName.text = item.name;
-                itemView.imageView.setImageDrawable(context.getDrawable(item.image))
+                Glide.with(context).load(item.image).into(itemView.imageView)
+//                itemView.imageView.setImageDrawable(context.getDrawable(item.image))
                 itemView.tvAmount.text = " - " + item.amount.toString() + "g";
             }catch(e : Exception){
                 println(e.message);

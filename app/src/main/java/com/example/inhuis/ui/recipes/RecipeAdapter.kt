@@ -29,8 +29,6 @@ class RecipeAdapter(
             var ingredientsUsedString = ""
             for (i in 0 until numberOfUsedIngredients) {
                 ingredientsUsedString += recipe.ingredientsUsed[i].name
-                ingredientsUsedString += " " + R.string.fa_check_solid
-                ingredientsUsedString += " " + "\uf00c"
                 ingredientsUsedString += "\n"
             }
             itemView.singleRecipeUsedIngredients.text = ingredientsUsedString

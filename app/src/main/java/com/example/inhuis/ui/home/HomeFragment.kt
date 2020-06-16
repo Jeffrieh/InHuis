@@ -47,10 +47,10 @@ class HomeFragment : Fragment() {
         ingredientsViewModel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
 
         allowedIngredients = listOf<Ingredient>(
-            Ingredient("Apple", 0, R.drawable.apple),
-            Ingredient("Banana", 0, R.drawable.banana),
-            Ingredient("Garlic", 0, R.drawable.banana),
-            Ingredient("Chicken", 0, R.drawable.apple)
+            Ingredient("Apple", 0, "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg"),
+            Ingredient("Banana", 0, "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg"),
+            Ingredient("Garlic", 0, "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8"),
+            Ingredient("Chicken", 0, "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png")
         );
 
 
@@ -84,6 +84,7 @@ class HomeFragment : Fragment() {
 
             }
 
+
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
 
         ingredientsViewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredients ->
@@ -91,7 +92,6 @@ class HomeFragment : Fragment() {
             recyclerView.adapter = adapter;
             itemTouchHelper.attachToRecyclerView(recyclerView);
         })
-
 
         //Floating action button on the home screen.
         val fab: View = root.findViewById(R.id.fab)

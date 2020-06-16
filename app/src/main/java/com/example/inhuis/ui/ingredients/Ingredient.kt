@@ -4,7 +4,8 @@ data class Ingredient(
     var id: Int,
     var name: String,
     var imageURL: String,
-    var amount: Double
-) {
+    var amount: Double,
+    var selected: Boolean = false
+    ) {
 
 }

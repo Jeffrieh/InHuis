@@ -84,43 +84,49 @@ class IngredientsFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(root.context)
         recyclerView.setHasFixedSize(true)
 
+        val ingredients = arrayListOf<Ingredient>();
+
+        val adapter = IngredientsAdapter(ingredients, root.context)
+        recyclerView.adapter = adapter
+//
+//        tracker = SelectionTracker.Builder(
+//            "selection-1",
+//            recyclerView,
+//            StableIdKeyProvider(recyclerView),
+//            IngredientsLookup(recyclerView),
+//            StorageStrategy.createLongStorage()
+//        ).withSelectionPredicate(
+//            SelectionPredicates.createSelectAnything()
+//        ).build()
+//
+//        adapter.setTracker(tracker)
+
         ingredientsViewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredients ->
-            val adapter = IngredientsAdapter(ingredients, root.context)
+            adapter.updateItems(ingredients)
             recyclerView.adapter = adapter
-
-            //we create a new tracker everytime the observer updates, really inefficient.
-            tracker = SelectionTracker.Builder(
-                "selection-1",
-                recyclerView,
-                StableIdKeyProvider(recyclerView),
-                IngredientsLookup(recyclerView),
-                StorageStrategy.createLongStorage()
-            ).withSelectionPredicate(
-                SelectionPredicates.createSelectAnything()
-            ).build()
-
-            adapter.setTracker(tracker)
-
-            tracker?.addObserver(
-                object : SelectionTracker.SelectionObserver<Long>() {
-                    override fun onItemStateChanged(key: Long, selected: Boolean) {}
-
-                    override fun onSelectionChanged() {
-                        var tl = ArrayList<Ingredient>();
-                        tracker?.selection!!.forEach {
-                            val ingredient = adapter.getItemAt(it.toInt());
-                            tl.add(ingredient);
-                        }
-
-                        ingredientsViewModel.setSelected(tl);
-
-                        val items = tracker?.selection!!.size();
-                        if (items > 0) {
-                            actionMode = view?.startActionMode(ActionModeCallback());
-                        }
-                    }
-                })
         })
+//
+//        tracker?.addObserver(
+//            object : SelectionTracker.SelectionObserver<Long>() {
+//                override fun onItemStateChanged(key: Long, selected: Boolean) {
+//
+//                }
+//
+//                override fun onSelectionChanged() {
+//                    var tl = ArrayList<Ingredient>();
+//                    tracker?.selection!!.forEach {
+//                        val ingredient = adapter.getItemAt(it.toInt());
+//                        tl.add(ingredient);
+//                    }
+//
+//                    ingredientsViewModel.setSelected(tl);
+//
+//                    val items = tracker?.selection!!.size();
+//                    if (items > 0) {
+//                        actionMode = view?.startActionMode(ActionModeCallback());
+//                    }
+//                }
+//            })
 
         return root
 

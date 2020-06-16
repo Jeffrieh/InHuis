@@ -44,16 +44,16 @@ class RecipeDetailFragment() : Fragment() {
         val root = inflater.inflate(R.layout.fragment_recipedetail, container, false)
 
         // TURN THIS OFF FOR LIVE DATA AND ON FOR MOCKUP DATA
-//        val titleText: TextView = root.findViewById(R.id.RecipeDetailTitle)
-//        val ingredientsTitleText: TextView = root.findViewById(R.id.recipeDetailIngredientsTitle)
-//        val ingredientsText: TextView = root.findViewById(R.id.RecipeDetailIngredients)
-//        val summaryText: TextView = root.findViewById(R.id.recipeDetailSummary)
-//        val instructionsText: TextView = root.findViewById(R.id.recipeDetailInstructions)
-//        val timeText: TextView = root.findViewById(R.id.recipeDetailTime)
-//        val image: ImageView = root.findViewById(R.id.RecipeDetailImage)
+        val titleText: TextView = root.findViewById(R.id.RecipeDetailTitle)
+        val ingredientsTitleText: TextView = root.findViewById(R.id.recipeDetailIngredientsTitle)
+        val ingredientsText: TextView = root.findViewById(R.id.RecipeDetailIngredients)
+        val summaryText: TextView = root.findViewById(R.id.recipeDetailSummary)
+        val instructionsText: TextView = root.findViewById(R.id.recipeDetailInstructions)
+        val timeText: TextView = root.findViewById(R.id.recipeDetailTime)
+        val image: ImageView = root.findViewById(R.id.RecipeDetailImage)
 
         // TURN THIS OFF FOR LIVE DATA AND ON FOR MOCKUP DATA
-        // recipe = RecipeDetail.RECIPE
+         recipe = RecipeDetail.RECIPE
 
         // TURN THIS OFF FOR LIVE DATA AND ON FOR MOCKUP DATA
 //        titleText.text = recipe.title
