@@ -62,7 +62,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="408dp"
         android:layout_height="674dp"
-        android:background="#283592"
+        android:background="@color/colorPrimary"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintHorizontal_bias="0.4"
