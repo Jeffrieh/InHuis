@@ -22,6 +22,7 @@ class ACIngredientsAdapter(
         return super.getItem(position);
     }
 
+
     override fun getCount(): Int {
         return suggestions.size
     }
@@ -30,8 +31,15 @@ class ACIngredientsAdapter(
         return ingredients;
     }
 
+
     override fun getFilter(): Filter {
         return object : Filter() {
+
+            override fun convertResultToString(resultValue: Any?): CharSequence {
+                val value = resultValue as Ingredient
+                return value.name
+            }
+
             override fun publishResults(
                 charSequence: CharSequence?,
                 filterResults: Filter.FilterResults
@@ -64,7 +72,7 @@ class ACIngredientsAdapter(
         println(position)
         var row: View? = convertView;
         val inflater: LayoutInflater = LayoutInflater.from(context);
-        
+
         if (row == null) row = inflater.inflate(R.layout.custom_autocomplete_layout, parent, false)
 
         val listEntry = suggestions.get(position);

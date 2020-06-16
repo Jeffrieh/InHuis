@@ -47,10 +47,26 @@ class HomeFragment : Fragment() {
         ingredientsViewModel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
 
         allowedIngredients = listOf<Ingredient>(
-            Ingredient("Apple", 0, "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg"),
-            Ingredient("Banana", 0, "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg"),
-            Ingredient("Garlic", 0, "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8"),
-            Ingredient("Chicken", 0, "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png")
+            Ingredient(
+                "Apple",
+                0,
+                "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg"
+            ),
+            Ingredient(
+                "Banana",
+                0,
+                "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg"
+            ),
+            Ingredient(
+                "Garlic",
+                0,
+                "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8"
+            ),
+            Ingredient(
+                "Chicken",
+                0,
+                "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png"
+            )
         );
 
 
@@ -116,11 +132,6 @@ class HomeFragment : Fragment() {
                 textView.setAdapter(arrayAdapter)
                 textView.setOnClickListener { textView.showDropDown() }
 
-                textView.setOnItemClickListener { parent, view, position, id ->
-                    textView.setText(arrayAdapter.getItem(position)?.name)
-//                    drwbl = arrayAdapter.getItem(position)?.image!!
-                }
-
                 var text: String
 
                 builder.setPositiveButton("OK") { dialog, button ->
@@ -128,7 +139,9 @@ class HomeFragment : Fragment() {
                         val t = Ingredient(
                             textView.text.toString(),
                             Integer.parseInt(layout.etAmount.text.toString()),
-                            allowedIngredients.find { ingredient -> textView.text.toString().equals(ingredient.name) }!!.image
+                            allowedIngredients.find { ingredient ->
+                                textView.text.toString().equals(ingredient.name)
+                            }!!.image
                         )
 
                         ingredientsViewModel.insert(t)

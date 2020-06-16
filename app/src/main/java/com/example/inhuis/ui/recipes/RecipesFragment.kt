@@ -47,15 +47,14 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
         recipesViewModel = ViewModelProvider({ requireActivity().viewModelStore }).get(RecipesViewModel::class.java);
 
         // returns a list of Ingredients()
-        var listOfIngredients = ingredientsViewModel.selected
-        println(ingredientsViewModel.selected);
+        var listOfIngredients = ingredientsViewModel.ingredients.value
         Log.i("getData", listOfIngredients.toString())
         var ingredientsString = ""
-        for (i in 0 until listOfIngredients.count()) {
+        for (i in 0 until listOfIngredients!!.count()) {
             ingredientsString += if (i == 0) {
-                listOfIngredients[i].name
+                listOfIngredients?.get(i)?.name
             } else {
-                "," + listOfIngredients[i].name
+                "," + listOfIngredients?.get(i)?.name
             }
         }
         ingredientsString = ingredientsString.toLowerCase()

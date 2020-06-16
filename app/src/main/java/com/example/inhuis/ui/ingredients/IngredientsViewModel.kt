@@ -13,14 +13,23 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
 
     private val repository: IngredientRepository
 
-    val ingredients: LiveData<List<Ingredient>>
-    var selected : MutableList<Ingredient>
+    //    val ingredients : LiveData<List<Ingredient>>
+    val ingredients: MediatorLiveData<List<Ingredient>> = MediatorLiveData()
+    val selected: List<Ingredient> = listOf()
 
     init {
         val ingredientDao = IngredientDatabase.getDatabase(application).ingredientDao()
         repository = IngredientRepository(ingredientDao)
-        ingredients = repository.ingredients
-        selected = ArrayList()
+//        ingredients = repository.ingredients
+
+//        ingredients = repository.ingredients
+        this.ingredients.addSource(repository.ingredients) { result: List<Ingredient>? ->
+            result?.let { ingredients.value = result }
+        }
+    }
+
+    fun updateIngredient(ingredients: List<Ingredient>) {
+        this.ingredients.value = ingredients
     }
 
     fun insert(ingredient: Ingredient) = viewModelScope.launch(Dispatchers.IO) {
@@ -29,10 +38,6 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
 
     fun delete(ingredient: Ingredient) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(ingredient)
-    }
-
-    fun setSelected(selectedIngredients : ArrayList<Ingredient>){
-        selected = selectedIngredients;
     }
 
 

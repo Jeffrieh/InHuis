@@ -2,9 +2,11 @@ package com.example.inhuis.ui.ingredients
 
 import IngredientsAdapter
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,7 +24,8 @@ import com.example.inhuis.database.Ingredient
 import com.example.inhuis.ui.recipes.RecipesFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
-import java.util.ArrayList
+import java.util.*
+import java.util.Arrays.stream
 
 
 class IngredientsFragment : Fragment() {
@@ -64,6 +67,7 @@ class IngredientsFragment : Fragment() {
 //                myAdapter?.notifyDataSetChanged()
 //            }
 //            isMultiSelectOn = false
+            println("destroying")
             actionMode = null
 //            shouldResetRecyclerView = true
         }
@@ -71,6 +75,7 @@ class IngredientsFragment : Fragment() {
 
     private var tracker: SelectionTracker<Long>? = null
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,46 +92,28 @@ class IngredientsFragment : Fragment() {
         val ingredients = arrayListOf<Ingredient>();
 
         val adapter = IngredientsAdapter(ingredients, root.context)
+
+        adapter.onItemClick = {
+            ingredientsViewModel.updateIngredient(it as List<Ingredient>)
+        }
+
         recyclerView.adapter = adapter
-//
-//        tracker = SelectionTracker.Builder(
-//            "selection-1",
-//            recyclerView,
-//            StableIdKeyProvider(recyclerView),
-//            IngredientsLookup(recyclerView),
-//            StorageStrategy.createLongStorage()
-//        ).withSelectionPredicate(
-//            SelectionPredicates.createSelectAnything()
-//        ).build()
-//
-//        adapter.setTracker(tracker)
 
         ingredientsViewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredients ->
             adapter.updateItems(ingredients)
             recyclerView.adapter = adapter
+
+            println("actionmode is ${actionMode}")
+
+            val showAction = ingredients.map { t -> t.checked }.contains(true)
+            if (showAction) {
+                actionMode = view?.startActionMode(ActionModeCallback())
+            } else {
+                println("were stopping")
+                println(actionMode)
+                actionMode?.finish()
+            }
         })
-//
-//        tracker?.addObserver(
-//            object : SelectionTracker.SelectionObserver<Long>() {
-//                override fun onItemStateChanged(key: Long, selected: Boolean) {
-//
-//                }
-//
-//                override fun onSelectionChanged() {
-//                    var tl = ArrayList<Ingredient>();
-//                    tracker?.selection!!.forEach {
-//                        val ingredient = adapter.getItemAt(it.toInt());
-//                        tl.add(ingredient);
-//                    }
-//
-//                    ingredientsViewModel.setSelected(tl);
-//
-//                    val items = tracker?.selection!!.size();
-//                    if (items > 0) {
-//                        actionMode = view?.startActionMode(ActionModeCallback());
-//                    }
-//                }
-//            })
 
         return root
 

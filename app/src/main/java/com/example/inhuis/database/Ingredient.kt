@@ -10,11 +10,12 @@ import androidx.room.PrimaryKey
 class Ingredient(
     @PrimaryKey @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "amount") var amount: Int,
-    @ColumnInfo(name = "image") var image: String,
-    @Ignore var checked: Boolean = false
+    @ColumnInfo(name = "image") var image: String
 ) {
     constructor(
     ) : this("", 0, "")
+
+    @Ignore var checked: Boolean = false
 
     fun seChecked(value: Boolean) {
         this.checked = value;

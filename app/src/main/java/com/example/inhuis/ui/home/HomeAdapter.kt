@@ -27,6 +27,7 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
         return position.toLong()
     }
 
+
     override fun getItemCount() = myDataset.size
 
     inner class HomeAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

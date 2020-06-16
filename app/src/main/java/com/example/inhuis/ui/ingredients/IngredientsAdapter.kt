@@ -18,6 +18,7 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
     RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
 
     private var tracker: SelectionTracker<Long>? = null
+    var onItemClick: ((Any) -> Unit)? = null
 
     init {
         setHasStableIds(true)
@@ -47,16 +48,15 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
     }
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         fun bind(item: Ingredient, selected: Boolean?) = with(itemView) {
             try {
-
                 itemView.setOnClickListener {
-                    println("check!")
-                    println(item.checked)
                     item.seChecked(!item.checked)
-                    itemView.ivCheck.visibility = if (item.checked) View.VISIBLE else View.GONE
+                    onItemClick?.invoke(ingredients)
                 }
 
+                itemView.ivCheck.visibility = if (item.checked) View.VISIBLE else View.GONE
                 Glide.with(context).load(item.image).into(itemView.imageView)
                 itemView.tvName.text = item.name;
                 itemView.tvAmount.text = " - " + item.amount.toString() + "g"
