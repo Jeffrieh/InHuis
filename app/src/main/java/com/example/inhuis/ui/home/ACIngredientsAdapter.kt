@@ -16,11 +16,14 @@ class ACIngredientsAdapter(
     private val ingredients: List<Ingredient>
 ) : ArrayAdapter<Ingredient>(context, 0, ingredients) {
 
-
     private var suggestions: List<Ingredient> = listOf()
 
     override fun getItem(position: Int): Ingredient? {
         return super.getItem(position);
+    }
+
+    override fun getCount(): Int {
+        return suggestions.size
     }
 
     fun getListOfItems(): List<Ingredient> {
@@ -58,27 +61,24 @@ class ACIngredientsAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        println(position)
         var row: View? = convertView;
         val inflater: LayoutInflater = LayoutInflater.from(context);
-
+        
         if (row == null) row = inflater.inflate(R.layout.custom_autocomplete_layout, parent, false)
 
-        println(row)
-        if (position < suggestions.size) {
-            val listEntry = suggestions.get(position);
-            val searchItem: String = listEntry.name;
+        val listEntry = suggestions.get(position);
+        val searchItem: String = listEntry.name;
 
-            val autoItem: TextView? = row?.findViewById(R.id.txt);
-            autoItem?.setText(searchItem);
+        val autoItem: TextView? = row?.findViewById(R.id.txt);
+        autoItem?.setText(searchItem);
 
-            // Get a reference to ImageView holder
-            val icon: ImageView? = row!!.findViewById(R.id.flag);
-            Glide.with(context).load(listEntry.image).into(icon!!)
-
-        }
-
+        // Get a reference to ImageView holder
+        val icon: ImageView? = row!!.findViewById(R.id.flag);
+        Glide.with(context).load(listEntry.image).into(icon!!)
 
         return row!!;
+
 
     }
 
