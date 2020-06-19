@@ -1,6 +1,7 @@
 package com.example.inhuis.ui.recipesdetail
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -155,7 +156,7 @@ class RecipeDetailFragment() : Fragment() {
                             ingredientsString += "\n"
                         }
                         ingredientsText.text = ingredientsString
-                        summaryText.text = recipe.summary
+                        summaryText.text = Html.fromHtml( recipe.summary )
                         instructionsText.text = recipe.instructions
                         timeText.text = recipe.timeToMake + " minutes"
                         Picasso.get()
