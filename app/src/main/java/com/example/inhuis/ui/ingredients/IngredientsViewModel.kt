@@ -14,7 +14,7 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
     private val repository: IngredientRepository
 
     //    val ingredients : LiveData<List<Ingredient>>
-    val ingredients: MediatorLiveData<List<Ingredient>> = MediatorLiveData()
+        val ingredients: MediatorLiveData<List<Ingredient>> = MediatorLiveData()
     val selected: List<Ingredient> = listOf()
 
     init {

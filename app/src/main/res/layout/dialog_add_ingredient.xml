@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Amount"
                 android:inputType="number"
-                android:text="100" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/measurement"

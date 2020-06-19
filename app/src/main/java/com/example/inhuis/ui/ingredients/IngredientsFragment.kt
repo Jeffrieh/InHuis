@@ -92,14 +92,10 @@ class IngredientsFragment : Fragment() {
             adapter.updateItems(ingredients)
             recyclerView.adapter = adapter
 
-            println("actionmode is ${actionMode}")
-
             val showAction = ingredients.map { t -> t.checked }.contains(true)
             if (showAction) {
                 actionMode = view?.startActionMode(ActionModeCallback())
             } else {
-                println("were stopping")
-                println(actionMode)
                 actionMode?.finish()
             }
         })
