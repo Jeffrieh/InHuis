@@ -103,7 +103,7 @@ class RecipeDetailFragment() : Fragment() {
                         for (i in 0 until ingredients.length()) {
                             try {
                                 var ingredientObject = ingredients.getJSONObject(i)
-                                var ingredientID = ingredientObject.getString("id").toInt()
+//                                var ingredientID = ingredientObject.getString("id").toInt()
                                 var ingredientName = ingredientObject.getString("name")
                                 var ingredientImageURL = ingredientObject.getString("image")
                                 var ingredientAmount =

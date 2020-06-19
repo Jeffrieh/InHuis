@@ -36,7 +36,8 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
                 itemView.tvName.text = item.name;
                 Glide.with(context).load(item.image).into(itemView.imageView)
 //                itemView.imageView.setImageDrawable(context.getDrawable(item.image))
-                itemView.tvAmount.text = " - " + item.amount.toString() + "g";
+                println("printing item : ${item.amountType}")
+                itemView.tvAmount.text = " - " + item.amount.toString() + item.amountType.value;
             } catch (e: Exception) {
             }
         }

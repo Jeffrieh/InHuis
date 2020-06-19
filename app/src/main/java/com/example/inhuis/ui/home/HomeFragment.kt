@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var textView: AutoCompleteTextView;
     private lateinit var measurementText: TextView;
+    private lateinit var amountText: TextView;
     private lateinit var allowedIngredients: List<Ingredient>;
     private var isErrorMessage : Boolean = false;
 
@@ -54,34 +55,35 @@ class HomeFragment : Fragment() {
         allowedIngredients = listOf<Ingredient>(
             Ingredient(
                 "Apple",
-                0,
+                4,
                 "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg",
                 amountTypes.PCS
             ),
             Ingredient(
                 "Milk",
-                0,
+                1,
                 "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png",
                 amountTypes.LITER
             ),
             Ingredient(
                 "Banana",
-                0,
+                1,
                 "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg",
                 amountTypes.PCS
             ),
             Ingredient(
                 "Garlic",
-                0,
+                1,
                 "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8",
                 amountTypes.CLOVES
             ),
             Ingredient(
                 "Chicken",
-                0,
-                "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png",
+                300,
+                "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_34893366-5ba3-49a8-8e7e-331da52d4136.png",
                 amountTypes.GRAM
             )
+
         );
 
 
@@ -141,6 +143,7 @@ class HomeFragment : Fragment() {
                 )
 
                 measurementText = layout.findViewById(R.id.measurement) as TextView
+                amountText = layout.findViewById(R.id.etAmount) as TextView
 
                 textView = layout.findViewById(R.id.tvingredient) as AutoCompleteTextView
                 textView.setAdapter(arrayAdapter)
@@ -148,12 +151,15 @@ class HomeFragment : Fragment() {
 
                 builder.setPositiveButton("OK") { dialog, button ->
                     try {
+
+                        var selectedIngredient = allowedIngredients.find{ingredient -> textView.text.toString().equals(ingredient.name)}
+
+                        println(selectedIngredient!!.amountType)
                         val t = Ingredient(
                             textView.text.toString(),
                             Integer.parseInt(layout.etAmount.text.toString()),
-                            allowedIngredients.find { ingredient ->
-                                textView.text.toString().equals(ingredient.name)
-                            }!!.image
+                            selectedIngredient!!.image,
+                            selectedIngredient!!.amountType
                         )
 
                         ingredientsViewModel.insert(t)
@@ -190,6 +196,7 @@ class HomeFragment : Fragment() {
                     if(valid){
                         var ing = allowedIngredients.find{e -> e.name == s.toString()}
                        measurementText.text = ing?.amountType?.name
+                        amountText.text = ing?.amount.toString()
                     }
                 }
 
