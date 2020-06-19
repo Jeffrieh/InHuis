@@ -109,7 +109,7 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
                                 missedIngredientsArray.add(
                                     Ingredient(
                                         ingredientName,
-                                        ingredientAmount.toInt(),
+                                        ingredientAmount,
                                         ingredientImageURL,
                                         amountTypes.GRAM
                                     )
@@ -131,7 +131,7 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
                                 usedIngredientsArray.add(
                                     Ingredient(
                                         ingredientName,
-                                        ingredientAmount.toInt(),
+                                        ingredientAmount,
                                         ingredientImageURL,
                                         amountTypes.GRAM
                                     )

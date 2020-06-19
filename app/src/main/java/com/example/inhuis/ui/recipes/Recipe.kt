@@ -21,13 +21,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test Ingredient 1",
-                        12,
+                        12.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Apple",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -35,13 +35,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test ingredient 2",
-                        300,
+                        300.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Test Ingredient 4",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -54,13 +54,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test Ingredient 1",
-                        12,
+                        12.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Apple",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -68,13 +68,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test ingredient 2",
-                        300,
+                        300.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Test Ingredient 4",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -87,13 +87,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test Ingredient 1",
-                        12,
+                        12.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Apple",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -101,13 +101,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test ingredient 2",
-                        300,
+                        300.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Test Ingredient 4",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -120,13 +120,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test Ingredient 1",
-                        12,
+                        12.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Apple",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )
@@ -134,13 +134,13 @@ data class Recipe(
                 arrayListOf<Ingredient>(
                     Ingredient(
                         "Test ingredient 2",
-                        300,
+                        300.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     ),
                     Ingredient(
                         "Test Ingredient 4",
-                        500,
+                        500.0,
                         "https://spoonacular.com/recipeImages/532783-312x231.jpg",
                         amountTypes.GRAM
                     )

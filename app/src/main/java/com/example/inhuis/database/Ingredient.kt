@@ -6,12 +6,12 @@ import androidx.room.*
 @Entity(tableName = "ingredient")
 class Ingredient(
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "amount") var amount: Int,
+    @ColumnInfo(name = "amount") var amount: Double,
     @ColumnInfo(name = "image") var image: String,
     @ColumnInfo(name = "amount_type") var amountType: amountTypes
 ) {
     constructor(
-    ) : this("", 0, "", amountTypes.LITER)
+    ) : this("", 0.0, "", amountTypes.LITER)
 
     @Ignore
     var checked: Boolean = false
@@ -35,7 +35,7 @@ class AmountTypeConverter {
     fun toType(value: String): amountTypes {
         return when (value) {
             "G" -> amountTypes.GRAM
-            "pcs" -> amountTypes.PCS
+            " pcs" -> amountTypes.PCS
             "L" -> amountTypes.LITER
             "KG" -> amountTypes.KILO
             "ml" -> amountTypes.ML

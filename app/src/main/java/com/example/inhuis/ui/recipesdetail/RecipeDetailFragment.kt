@@ -111,7 +111,7 @@ class RecipeDetailFragment() : Fragment() {
                                     ingredientsArray.add(
                                         Ingredient(
                                             ingredientName,
-                                            ingredientAmount.toInt(),
+                                            ingredientAmount,
                                             ingredientImageURL,
                                             amountTypes.GRAM
                                         )
@@ -158,6 +158,8 @@ class RecipeDetailFragment() : Fragment() {
                         ingredientsText.text = ingredientsString
                         summaryText.text = Html.fromHtml( recipe.summary )
                         instructionsText.text = recipe.instructions
+                        println("printing instructions : ${recipe.instructions}")
+
                         timeText.text = recipe.timeToMake + " minutes"
                         Picasso.get()
                             .load(recipe.imageURL)

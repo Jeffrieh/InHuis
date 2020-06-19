@@ -55,31 +55,31 @@ class HomeFragment : Fragment() {
         allowedIngredients = listOf<Ingredient>(
             Ingredient(
                 "Apple",
-                4,
+                4.0,
                 "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg",
                 amountTypes.PCS
             ),
             Ingredient(
                 "Milk",
-                1,
+                1.0,
                 "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png",
                 amountTypes.LITER
             ),
             Ingredient(
                 "Banana",
-                1,
+                1.0,
                 "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg",
                 amountTypes.PCS
             ),
             Ingredient(
                 "Garlic",
-                1,
+                1.0,
                 "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8",
                 amountTypes.CLOVES
             ),
             Ingredient(
                 "Chicken",
-                300,
+                300.0,
                 "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_34893366-5ba3-49a8-8e7e-331da52d4136.png",
                 amountTypes.GRAM
             )
@@ -157,7 +157,7 @@ class HomeFragment : Fragment() {
                         println(selectedIngredient!!.amountType)
                         val t = Ingredient(
                             textView.text.toString(),
-                            Integer.parseInt(layout.etAmount.text.toString()),
+                            layout.etAmount.text.toString().toDouble(),
                             selectedIngredient!!.image,
                             selectedIngredient!!.amountType
                         )
