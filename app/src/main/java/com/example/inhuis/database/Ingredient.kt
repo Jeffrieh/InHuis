@@ -5,17 +5,19 @@ import androidx.room.*
 
 @Entity(tableName = "ingredient")
 class Ingredient(
-    @PrimaryKey @ColumnInfo(name = "name") var name: String,
+    @ColumnInfo(name = "name") var name: String,
     @ColumnInfo(name = "amount") var amount: Int,
     @ColumnInfo(name = "image") var image: String,
-    @ColumnInfo(name = "amount_type") var amountType: amountTypes = amountTypes.GRAM
+    @ColumnInfo(name = "amount_type") var amountType: amountTypes
 ) {
     constructor(
-    ) : this("", 0, "", amountTypes.GRAM)
+    ) : this("", 0, "", amountTypes.LITER)
 
     @Ignore
     var checked: Boolean = false
 
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 
     fun seChecked(value: Boolean) {
         this.checked = value;
@@ -26,7 +28,7 @@ class AmountTypeConverter {
 
     @TypeConverter
     fun fromType(value: amountTypes): String {
-        return value.name
+        return value.value
     }
 
     @TypeConverter
@@ -44,11 +46,11 @@ class AmountTypeConverter {
 
 }
 
-enum class amountTypes(val value: Int) {
-    GRAM(0),
-    PCS(1),
-    LITER(2),
-    KILO(3),
-    ML(4),
-    CLOVES(5),
+enum class amountTypes(val value: String) {
+    GRAM("g"),
+    PCS(" pcs"),
+    LITER("L"),
+    KILO("KG"),
+    ML("ml"),
+    CLOVES("cloves"),
 }

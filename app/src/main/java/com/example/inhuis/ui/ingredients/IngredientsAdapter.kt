@@ -59,7 +59,7 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
                 itemView.ivCheck.visibility = if (item.checked) View.VISIBLE else View.GONE
                 Glide.with(context).load(item.image).into(itemView.imageView)
                 itemView.tvName.text = item.name;
-                itemView.tvAmount.text = " - " + item.amount.toString() + "g"
+                itemView.tvAmount.text = " - " + item.amount.toString() + item.amountType.value
             } catch (e: Exception) {
                 Log.e("error", e.toString())
             }

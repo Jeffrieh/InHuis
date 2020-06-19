@@ -38,11 +38,6 @@ class IngredientsFragment : Fragment() {
             when (item?.getItemId()) {
                 R.id.action_get_recipes -> {
                     actionMode?.finish();
-                    //TODO : redirect to other fragment and pass ingredients data
-
-//                    var bundle = Bundle()
-//                    bundle.putParcelableArrayList("ingredients", ArrayList(selectedIngredients))
-
                     parentFragment?.findNavController()?.navigate(R.id.navigation_notifications)
                     return true
                 }
@@ -62,12 +57,6 @@ class IngredientsFragment : Fragment() {
         }
 
         override fun onDestroyActionMode(mode: ActionMode?) {
-//            if (shouldResetRecyclerView) {
-//                myAdapter?.selectedIds?.clear()
-//                myAdapter?.notifyDataSetChanged()
-//            }
-//            isMultiSelectOn = false
-            println("destroying")
             actionMode = null
 //            shouldResetRecyclerView = true
         }

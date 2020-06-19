@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface IngredientDao {
 
-    @Query("SELECT * from ingredient ORDER BY name ASC")
+    @Query("SELECT *, SUM(amount) as amount from ingredient GROUP BY name ORDER BY name ASC")
     fun getIngredients(): LiveData<List<Ingredient>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
