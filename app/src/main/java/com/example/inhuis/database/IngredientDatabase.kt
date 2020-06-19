@@ -1,11 +1,14 @@
 package com.example.inhuis.database
 
 import android.content.Context
+import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(entities = arrayOf(Ingredient::class), version = 3, exportSchema = false)
+@Database(entities = arrayOf(Ingredient::class), version = 5, exportSchema = false)
+@TypeConverters(AmountTypeConverter::class)
 public abstract class IngredientDatabase : RoomDatabase() {
 
     abstract fun ingredientDao(): IngredientDao

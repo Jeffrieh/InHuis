@@ -19,7 +19,8 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.inhuis.MainActivity
 import com.example.inhuis.R
-import com.example.inhuis.ui.ingredients.Ingredient
+import com.example.inhuis.database.Ingredient
+import com.example.inhuis.database.amountTypes
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import org.json.JSONException
 
@@ -43,8 +44,10 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
 
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        ingredientsViewModel = ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
-        recipesViewModel = ViewModelProvider({ requireActivity().viewModelStore }).get(RecipesViewModel::class.java);
+        ingredientsViewModel =
+            ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
+        recipesViewModel =
+            ViewModelProvider({ requireActivity().viewModelStore }).get(RecipesViewModel::class.java);
 
         // returns a list of Ingredients()
         var listOfIngredients = ingredientsViewModel.ingredients.value
@@ -109,10 +112,10 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
                                     missedIngredientObject.getString("amount").toDouble()
                                 missedIngredientsArray.add(
                                     Ingredient(
-                                        ingredientID,
                                         ingredientName,
+                                        ingredientAmount.toInt(),
                                         ingredientImageURL,
-                                        ingredientAmount
+                                        amountTypes.GRAM
                                     )
                                 )
                             } catch (e: JSONException) {
@@ -131,10 +134,10 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
                                     usedIngredientObject.getString("amount").toDouble()
                                 usedIngredientsArray.add(
                                     Ingredient(
-                                        ingredientID,
                                         ingredientName,
+                                        ingredientAmount.toInt(),
                                         ingredientImageURL,
-                                        ingredientAmount
+                                        amountTypes.GRAM
                                     )
                                 )
                             } catch (e: JSONException) {

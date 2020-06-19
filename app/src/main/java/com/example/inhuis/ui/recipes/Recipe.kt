@@ -1,6 +1,8 @@
 package com.example.inhuis.ui.recipes
 
-import com.example.inhuis.ui.ingredients.Ingredient
+import com.example.inhuis.database.Ingredient
+import com.example.inhuis.database.amountTypes
+
 
 data class Recipe(
     var id: Int,
@@ -12,11 +14,138 @@ data class Recipe(
 
     companion object {
         val RECIPES = arrayOf<Recipe>(
-            Recipe(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient(1, "Test Ingredient 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 2.0), Ingredient(2, "Test Ingredient 2", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 4.0)), arrayListOf<Ingredient>(Ingredient(3, "Test Ingredient 3", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 3.0), Ingredient(4, "Test Ingredient 4", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 1.0))),
-            Recipe(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient(1, "Test Ingredient 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 2.0), Ingredient(2, "Test Ingredient 2", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 4.0)), arrayListOf<Ingredient>(Ingredient(3, "Test Ingredient 3", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 3.0), Ingredient(4, "Test Ingredient 4", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 1.0))),
-            Recipe(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient(1, "Test Ingredient 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 2.0), Ingredient(2, "Test Ingredient 2", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 4.0)), arrayListOf<Ingredient>(Ingredient(3, "Test Ingredient 3", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 3.0), Ingredient(4, "Test Ingredient 4", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 1.0))),
-            Recipe(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient(1, "Test Ingredient 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 2.0), Ingredient(2, "Test Ingredient 2", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 4.0)), arrayListOf<Ingredient>(Ingredient(3, "Test Ingredient 3", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 3.0), Ingredient(4, "Test Ingredient 4", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 1.0))),
-            Recipe(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient(1, "Test Ingredient 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 2.0), Ingredient(2, "Test Ingredient 2", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 4.0)), arrayListOf<Ingredient>(Ingredient(3, "Test Ingredient 3", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 3.0), Ingredient(4, "Test Ingredient 4", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 1.0)))
+            Recipe(
+                1,
+                "Test Title 1",
+                "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test Ingredient 1",
+                        12,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Apple",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                ),
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test ingredient 2",
+                        300,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Test Ingredient 4",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                )
+            ),
+            Recipe(
+                1,
+                "Test Title 1",
+                "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test Ingredient 1",
+                        12,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Apple",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                ),
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test ingredient 2",
+                        300,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Test Ingredient 4",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                )
+            ),
+            Recipe(
+                1,
+                "Test Title 1",
+                "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test Ingredient 1",
+                        12,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Apple",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                ),
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test ingredient 2",
+                        300,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Test Ingredient 4",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                )
+            ),
+            Recipe(
+                1,
+                "Test Title 1",
+                "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test Ingredient 1",
+                        12,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Apple",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                ),
+                arrayListOf<Ingredient>(
+                    Ingredient(
+                        "Test ingredient 2",
+                        300,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    ),
+                    Ingredient(
+                        "Test Ingredient 4",
+                        500,
+                        "https://spoonacular.com/recipeImages/532783-312x231.jpg",
+                        amountTypes.GRAM
+                    )
+                )
+            )
         )
     }
 

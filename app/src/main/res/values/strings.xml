@@ -9,10 +9,14 @@
     <string name="product_name">Hallo</string>
     <string name="amount">Amount in grams</string>
 
+
     <string name="single_recipe_title">Test</string>
     <string name="single_recipe_text">Test text</string>
     <string name="single_recipe_summary_title">Summary</string>
     <string name="single_recipe_instructions_title">Instructions</string>
+
+    <string name="add_item_dialog">Add a product that you have in your pantry.</string>
+
 
     <string-array name="ingredients_array">
         <item>Apple</item>

@@ -1,6 +1,7 @@
 package com.example.inhuis.ui.recipesdetail
 
-import com.example.inhuis.ui.ingredients.Ingredient
+import com.example.inhuis.database.Ingredient
+import com.example.inhuis.database.amountTypes
 
 data class RecipeDetail(
     var id: Int,
@@ -14,7 +15,7 @@ data class RecipeDetail(
 ) {
 
     companion object {
-        val RECIPE = RecipeDetail(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient(1, "Test Ingredient 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 2.0), Ingredient(2, "Test Ingredient 2", "https://spoonacular.com/recipeImages/532783-312x231.jpg", 4.0)),"12minutes",4,"Test summary", "Test instructions")
+        val RECIPE = RecipeDetail(1, "Test Title 1", "https://spoonacular.com/recipeImages/532783-312x231.jpg", arrayListOf<Ingredient>(Ingredient("Test Ingredient 1", 40,"https://spoonacular.com/recipeImages/532783-312x231.jpg", amountTypes.GRAM), Ingredient("Test Ingredient 2", 66,"https://spoonacular.com/recipeImages/532783-312x231.jpg", amountTypes.GRAM)),"12minutes",4,"Test summary", "Test instructions")
     }
 
     override fun equals(other: Any?): Boolean {

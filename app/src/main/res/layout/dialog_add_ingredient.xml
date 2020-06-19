@@ -1,40 +1,53 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <AutoCompleteTextView
-        android:id="@+id/tvingredient"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:hint="Ingredient"
-        android:completionThreshold="1"
-        android:text=""/>
-
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="gram"
+            type="Boolean" />
+    </data>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/etAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Amount"
-            android:inputType="number"
-            android:text="100" />
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/measurement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_item_dialog"></TextView>
+
+        <AutoCompleteTextView
+            android:id="@+id/tvingredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gram" />
+            android:singleLine="true"
+            android:hint="Product Name"
+            android:completionThreshold="1"
+            android:text="" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="number"
+                android:text="100" />
+
+            <TextView
+                android:id="@+id/measurement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-
-
-</LinearLayout>
+</layout>

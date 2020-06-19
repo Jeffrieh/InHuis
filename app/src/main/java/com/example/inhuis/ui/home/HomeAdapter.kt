@@ -32,13 +32,12 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
 
     inner class HomeAdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Ingredient) = with(itemView) {
-            try{
+            try {
                 itemView.tvName.text = item.name;
                 Glide.with(context).load(item.image).into(itemView.imageView)
 //                itemView.imageView.setImageDrawable(context.getDrawable(item.image))
                 itemView.tvAmount.text = " - " + item.amount.toString() + "g";
-            }catch(e : Exception){
-                println(e.message);
+            } catch (e: Exception) {
             }
         }
 
@@ -56,16 +55,6 @@ class HomeAdapter(private var myDataset: List<Ingredient>, private val context: 
 
     override fun onBindViewHolder(holder: HomeAdapterViewHolder, position: Int) {
         holder.bind(myDataset[position]);
-//        val parent = holder.name.parent as LinearLayout
-//
-//        if (tracker!!.isSelected(position.toLong())) {
-//            parent.background = ColorDrawable(
-//                Color.parseColor("#80deea")
-//            )
-//        } else {
-//            // Reset color to black if not selected
-//            parent.background = ColorDrawable(Color.BLACK)
-//        }
     }
 
 }

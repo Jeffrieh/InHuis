@@ -8,14 +8,12 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,10 +22,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
+import com.example.inhuis.database.amountTypes
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
-import kotlinx.android.synthetic.main.ingredient_item.view.*
 
 
 class HomeFragment : Fragment() {
@@ -35,8 +33,15 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var textView: AutoCompleteTextView;
+    private lateinit var measurementText: TextView;
     private lateinit var allowedIngredients: List<Ingredient>;
-    private var drwbl: Int = 0;
+    private var isErrorMessage : Boolean = false;
+
+    @BindingAdapter("app:goneUnless")
+    fun goneUnless(view: View, boolean: Boolean ) {
+        println("boolean : ")
+        println(boolean)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,22 +55,32 @@ class HomeFragment : Fragment() {
             Ingredient(
                 "Apple",
                 0,
-                "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg"
+                "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg",
+                amountTypes.PCS
+            ),
+            Ingredient(
+                "Milk",
+                0,
+                "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png",
+                amountTypes.LITER
             ),
             Ingredient(
                 "Banana",
                 0,
-                "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg"
+                "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg",
+                amountTypes.PCS
             ),
             Ingredient(
                 "Garlic",
                 0,
-                "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8"
+                "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8",
+                amountTypes.CLOVES
             ),
             Ingredient(
                 "Chicken",
                 0,
-                "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png"
+                "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png",
+                amountTypes.GRAM
             )
         );
 
@@ -125,14 +140,11 @@ class HomeFragment : Fragment() {
                     allowedIngredients
                 )
 
-                Log.i("checkArray", arrayAdapter.toString())
-                Log.i("checkArray", "TEST bericht")
+                measurementText = layout.findViewById(R.id.measurement) as TextView
 
                 textView = layout.findViewById(R.id.tvingredient) as AutoCompleteTextView
                 textView.setAdapter(arrayAdapter)
                 textView.setOnClickListener { textView.showDropDown() }
-
-                var text: String
 
                 builder.setPositiveButton("OK") { dialog, button ->
                     try {
@@ -175,6 +187,10 @@ class HomeFragment : Fragment() {
                     val names = allowedIngredients.map { e -> e.name }
                     valid = names.contains(s.toString());
                     alertDialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = valid;
+                    if(valid){
+                        var ing = allowedIngredients.find{e -> e.name == s.toString()}
+                       measurementText.text = ing?.amountType?.name
+                    }
                 }
 
                 override fun beforeTextChanged(
