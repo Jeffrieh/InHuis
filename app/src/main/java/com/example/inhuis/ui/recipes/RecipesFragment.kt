@@ -50,7 +50,7 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
             ViewModelProvider({ requireActivity().viewModelStore }).get(RecipesViewModel::class.java);
 
         // returns a list of Ingredients()
-        var listOfIngredients = ingredientsViewModel.ingredients.value
+        var listOfIngredients = ingredientsViewModel.ingredients.value?.filter { e -> e.checked }
         Log.i("getData", listOfIngredients.toString())
         var ingredientsString = ""
         for (i in 0 until listOfIngredients!!.count()) {
