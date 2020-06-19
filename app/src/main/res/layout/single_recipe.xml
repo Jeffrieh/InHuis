@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/singleRecipeImage"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:adjustViewBounds="false"
                 android:cropToPadding="false"
                 android:scaleType="centerCrop"
@@ -37,69 +37,87 @@
 
             <TextView
                 android:id="@+id/singleRecipeTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/single_recipe_title"
-                android:textSize="30sp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/singleRecipeImage" />
+
+            <TextView
+                android:id="@+id/usedIngredientsTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/used_ingredients_title"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/singleRecipeTitle" />
+
+            <TextView
+                android:id="@+id/singleRecipeUsedIngredients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/single_recipe_text"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/usedIngredientsTitle" />
+
+            <TextView
+                android:id="@+id/missingIngredientsTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/missing_ingredients_title"
+                android:textSize="16sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/singleRecipeUsedIngredients" />
+
+            <TextView
+                android:id="@+id/singleRecipeMissingIngredients"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/single_recipe_text"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/missingIngredientsTitle" />
 
             <ImageView
                 android:id="@+id/singleRecipeNextButton"
                 android:layout_width="68dp"
                 android:layout_height="71dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:background="#00FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/singleRecipeMissingIngredientsRow"
+                app:layout_constraintTop_toBottomOf="@+id/singleRecipeMissingIngredients"
                 app:srcCompat="@drawable/arrowright" />
-
-            <TableRow
-                android:id="@+id/singleRecipeMissingIngredientsRow"
-                android:layout_width="174dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/singleRecipeUsedIngredientsRow"
-                app:layout_constraintTop_toBottomOf="@+id/singleRecipeTitle">
-
-                <TextView
-                    android:id="@+id/singleRecipeMissingIngredients"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/single_recipe_text"
-                    android:textSize="18sp" />
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/singleRecipeUsedIngredientsRow"
-                android:layout_width="160dp"
-                android:layout_height="82dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toStartOf="@+id/singleRecipeMissingIngredientsRow"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/singleRecipeTitle">
-
-                <TextView
-                    android:id="@+id/singleRecipeUsedIngredients"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/single_recipe_text"
-                    android:textSize="18sp" />
-            </TableRow>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

@@ -26,4 +26,8 @@
         <item>Garlic</item>
         <item>Minced Meat</item>
     </string-array>
+
+    <string name="time_to_make">Time to Make</string>
+    <string name="used_ingredients_title">Available Ingredients</string>
+    <string name="missing_ingredients_title">Missing Ingredients</string>
 </resources>
