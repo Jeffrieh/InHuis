@@ -13,16 +13,11 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
 
     private val repository: IngredientRepository
 
-    //    val ingredients : LiveData<List<Ingredient>>
-        val ingredients: MediatorLiveData<List<Ingredient>> = MediatorLiveData()
-    val selected: List<Ingredient> = listOf()
+    val ingredients: MediatorLiveData<List<Ingredient>> = MediatorLiveData()
 
     init {
         val ingredientDao = IngredientDatabase.getDatabase(application).ingredientDao()
         repository = IngredientRepository(ingredientDao)
-//        ingredients = repository.ingredients
-
-//        ingredients = repository.ingredients
         this.ingredients.addSource(repository.ingredients) { result: List<Ingredient>? ->
             result?.let { ingredients.value = result }
         }

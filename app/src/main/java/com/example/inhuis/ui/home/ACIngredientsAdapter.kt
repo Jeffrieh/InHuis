@@ -39,7 +39,6 @@ class ACIngredientsAdapter(
                 filterResults: Filter.FilterResults
             ) {
                 suggestions = filterResults.values as List<Ingredient>
-                println(suggestions)
                 notifyDataSetChanged()
             }
 
@@ -63,7 +62,6 @@ class ACIngredientsAdapter(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        println(position)
         var row: View? = convertView;
         val inflater: LayoutInflater = LayoutInflater.from(context);
 

@@ -64,15 +64,6 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
                 Log.e("error", e.toString())
             }
 
-            if (selected != null && selected) {
-                itemView.background = ColorDrawable(
-                    Color.parseColor("#80deea")
-                )
-            } else {
-                itemView.background = ColorDrawable(
-                    resources.getColor(R.color.colorPrimary)
-                )
-            }
             //setOnClickListener { listener(item) }
         }
 
