@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -14,6 +15,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.database.amountTypes
@@ -25,7 +27,7 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
 
     private lateinit var recipesViewModel: RecipesViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
-
+    private lateinit var mainActivity: MainActivity
     private val recipes = arrayListOf<Recipe>()
     private lateinit var recipeAdapter: RecipeAdapter
 
@@ -35,18 +37,25 @@ class RecipesFragment() : Fragment(), OnItemClickListener {
         savedInstanceState: Bundle?
     ): View? {
 
+        mainActivity = requireActivity() as MainActivity
+
+        val ingredientsViewModel by mainActivity.viewModels<IngredientsViewModel>()
+        this.ingredientsViewModel = ingredientsViewModel
 
         recipeAdapter = RecipeAdapter(recipes, this);
 
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        mainActivity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        mainActivity.toolbar_title.text = "Recipes"
+
         val root = inflater.inflate(R.layout.fragment_recipes, container, false)
 
-        ingredientsViewModel =
-            ViewModelProvider({ requireActivity().viewModelStore }).get(IngredientsViewModel::class.java);
         recipesViewModel =
             ViewModelProvider({ requireActivity().viewModelStore }).get(RecipesViewModel::class.java);
 
         // returns a list of Ingredients()
         var listOfIngredients = ingredientsViewModel.ingredients.value?.filter { e -> e.checked }
+
         Log.i("getData", listOfIngredients.toString())
         var ingredientsString = ""
         for (i in 0 until listOfIngredients!!.count()) {

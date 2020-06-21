@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.ingredient_item.view.*
 class IngredientsAdapter(private var ingredients: List<Ingredient>, private val context: Context) :
     RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder>() {
 
-    private var tracker: SelectionTracker<Long>? = null
     var onItemClick: ((Any) -> Unit)? = null
 
     init {
@@ -43,14 +42,10 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
 
     override fun getItemCount() = ingredients.size
 
-    fun setTracker(tracker: SelectionTracker<Long>?) {
-        this.tracker = tracker
-    }
 
     inner class IngredientsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Ingredient, selected: Boolean?) = with(itemView) {
-            try {
+        fun bind(item: Ingredient) = with(itemView) {
                 itemView.setOnClickListener {
                     item.seChecked(!item.checked)
                     onItemClick?.invoke(ingredients)
@@ -58,11 +53,9 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
 
                 itemView.ivCheck.visibility = if (item.checked) View.VISIBLE else View.GONE
                 Glide.with(context).load(item.image).into(itemView.imageView)
+
                 itemView.tvName.text = item.name;
                 itemView.tvAmount.text = " - " + item.amount.toString() + item.amountType.value
-            } catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
 
             //setOnClickListener { listener(item) }
         }
@@ -76,7 +69,7 @@ class IngredientsAdapter(private var ingredients: List<Ingredient>, private val 
     }
 
     override fun onBindViewHolder(holder: IngredientsViewHolder, position: Int) {
-        holder.bind(ingredients[position], tracker?.isSelected(position.toLong()));
+        holder.bind(ingredients[position]);
     }
 
 }

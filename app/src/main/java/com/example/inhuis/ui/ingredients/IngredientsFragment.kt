@@ -1,31 +1,21 @@
 package com.example.inhuis.ui.ingredients
 
 import IngredientsAdapter
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.selection.SelectionPredicates
 import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
-import com.example.inhuis.ui.recipes.RecipesFragment
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.view.*
-import java.util.*
-import java.util.Arrays.stream
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class IngredientsFragment : Fragment() {
@@ -71,8 +61,11 @@ class IngredientsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val ingredientsViewModel by requireActivity().viewModels<IngredientsViewModel>()
+
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_dashboard)
+
+        requireActivity().toolbar_title.text = "Recipes"
 
         val recyclerView: RecyclerView = root.findViewById(R.id.rvIngredients)
         recyclerView.layoutManager = LinearLayoutManager(root.context)
@@ -98,10 +91,17 @@ class IngredientsFragment : Fragment() {
             } else {
                 actionMode?.finish()
             }
+
+            var selected = ingredients.filter { e -> e.checked }
+            actionMode?.title = if(selected.count() < 3) selected.map{e -> e.name}.joinToString() else "${selected.count()} Items Selected"
+
         })
 
         return root
 
     }
+
+
 }
+
 

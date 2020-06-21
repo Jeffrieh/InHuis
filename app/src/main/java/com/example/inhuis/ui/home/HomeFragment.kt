@@ -4,26 +4,25 @@ import ACIngredientsAdapter
 import HomeAdapter
 import android.app.AlertDialog
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.ActionMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
-import com.example.inhuis.database.amountTypes
 import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
@@ -31,62 +30,30 @@ import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeViewModel: HomeViewModel
     private lateinit var ingredientsViewModel: IngredientsViewModel
     private lateinit var textView: AutoCompleteTextView;
     private lateinit var measurementText: TextView;
     private lateinit var amountText: TextView;
     private lateinit var allowedIngredients: List<Ingredient>;
-    private var isErrorMessage : Boolean = false;
+    private var isErrorMessage: Boolean = false;
+    private lateinit var mainActivity: MainActivity
 
-    @BindingAdapter("app:goneUnless")
-    fun goneUnless(view: View, boolean: Boolean ) {
-        println("boolean : ")
-        println(boolean)
-    }
+    var actionMode: ActionMode? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mainActivity = requireActivity() as MainActivity
 
-        ingredientsViewModel = ViewModelProviders.of(this).get(IngredientsViewModel::class.java)
+        val ingredientsViewModel by mainActivity.viewModels<IngredientsViewModel>()
+        this.ingredientsViewModel = ingredientsViewModel
+        mainActivity.toolbar_title.text = "My Ingredients"
 
-        allowedIngredients = listOf<Ingredient>(
-            Ingredient(
-                "Apple",
-                4.0,
-                "https://www.foodandfriends.nl/upload/artikel/jm/appel-artikel.jpg",
-                amountTypes.PCS
-            ),
-            Ingredient(
-                "Milk",
-                1.0,
-                "https://w7.pngwing.com/pngs/336/200/png-transparent-chicken-meat-buffalo-wing-raw-foodism-chicken.png",
-                amountTypes.LITER
-            ),
-            Ingredient(
-                "Banana",
-                1.0,
-                "https://d2z5yqacp5qgwg.cloudfront.net/app/uploads/2020/01/Be-bananen.jpg",
-                amountTypes.PCS
-            ),
-            Ingredient(
-                "Garlic",
-                1.0,
-                "https://lh3.googleusercontent.com/proxy/RdDvmxe29AT7VgaJueIAuD3eSdNBWIO_u4iVN6fzm5gu0vKdaDhQyBGFolofazAnKjX5QHgvA4OIO3MStODR-tIqWRTBK_5aBk2GX--dKXcgpJcBi42ACmVjPzPScomrdS6v7wZwwI8",
-                amountTypes.CLOVES
-            ),
-            Ingredient(
-                "Chicken",
-                300.0,
-                "https://d2lnr5mha7bycj.cloudfront.net/product-image/file/large_34893366-5ba3-49a8-8e7e-331da52d4136.png",
-                amountTypes.GRAM
-            )
-
-        );
-
+        // Create a list for autocomplete
+        allowedIngredients = listOf<Ingredient>();
 
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -126,12 +93,33 @@ class HomeFragment : Fragment() {
 
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        val adapter = HomeAdapter(listOf(), root.context);
+        recyclerView.adapter = adapter;
+
+        adapter.onItemClick = {
+            ingredientsViewModel.updateIngredient(it as List<Ingredient>)
+        }
 
         ingredientsViewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredients ->
-            val adapter = HomeAdapter(ingredients, root.context);
-            recyclerView.adapter = adapter;
+            adapter.updateItems(ingredients)
             itemTouchHelper.attachToRecyclerView(recyclerView);
+
+            println("something updated!")
+
+            val showAction = ingredients.map { t -> t.checked }.contains(true)
+            if (showAction) {
+                if (mainActivity?.actionMode == null) mainActivity.startActionMode()
+            } else {
+                println("stopping action mode")
+                mainActivity.stopActionMode()
+            }
+
+            var selected = ingredients.filter { e -> e.checked }
+            mainActivity.actionMode?.title = if (selected.count() < 3) selected.map { e -> e.name }
+                .joinToString() else "${selected.count()} Items Selected"
+
         })
+
 
         //Floating action button on the home screen.
         val fab: View = root.findViewById(R.id.fab)
@@ -161,7 +149,9 @@ class HomeFragment : Fragment() {
                 }
                 builder.setPositiveButton("OK") { dialog, button ->
                     try {
-                        var selectedIngredient = allowedIngredients.find{ingredient -> textView.text.toString().equals(ingredient.name)}
+                        var selectedIngredient = allowedIngredients.find { ingredient ->
+                            textView.text.toString().equals(ingredient.name)
+                        }
 
                         println(selectedIngredient!!.amountType)
                         val t = Ingredient(
@@ -203,8 +193,8 @@ class HomeFragment : Fragment() {
                     val names = allowedIngredients.map { e -> e.name }
                     valid = names.contains(s.toString());
                     alertDialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = valid;
-                    if(valid){
-                        var ing = allowedIngredients.find{e -> e.name == s.toString()}
+                    if (valid) {
+                        var ing = allowedIngredients.find { e -> e.name == s.toString() }
                         measurementText.text = ing?.amountType?.name
                         amountText.text = ing?.amount.toString()
                     }
@@ -234,7 +224,5 @@ class HomeFragment : Fragment() {
 
         return root
     }
-
-
 
 }

@@ -108,15 +108,6 @@ class ACIngredientsAdapter(
                 )
                 queue.add(jsonArrayRequest)
 
-//                val filterResults = FilterResults()
-//                filterResults.values = if (queryString == null || queryString.isEmpty())
-//                    ingredients
-//                else {
-//                    ingredients.filter {
-//                        it.name.toLowerCase().contains(queryString)
-//                    }
-//                }
-
                 return filterResults
             }
         }

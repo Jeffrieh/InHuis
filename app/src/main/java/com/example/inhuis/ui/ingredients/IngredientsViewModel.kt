@@ -35,5 +35,11 @@ class IngredientsViewModel(application: Application) : AndroidViewModel(applicat
         repository.delete(ingredient)
     }
 
+    fun deselect() {
+        ingredients.value?.forEach {
+            it.checked = false
+        }
+        ingredients.value?.let { updateIngredient(it) }
+    }
 
 }
