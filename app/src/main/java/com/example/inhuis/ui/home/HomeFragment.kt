@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -113,6 +114,12 @@ class HomeFragment : Fragment() {
                     val ing =
                         (viewHolder as HomeAdapter.HomeAdapterViewHolder).getIngredientAt(viewHolder.adapterPosition);
                     ingredientsViewModel.delete(ing);
+                    Snackbar
+                        .make(recyclerView, "Ingredient Removed", Snackbar.LENGTH_LONG)
+                        .setAction("Undo") {
+                            ingredientsViewModel.insert(ing)
+                        }
+                        .show()
                 }
 
             }
@@ -130,6 +137,11 @@ class HomeFragment : Fragment() {
         val fab: View = root.findViewById(R.id.fab)
         fab.setOnClickListener { view ->
 
+            val arrayAdapter = ACIngredientsAdapter(
+                requireActivity(), R.layout.custom_autocomplete_layout,
+                allowedIngredients
+            )
+
             val alertDialog: AlertDialog? = activity?.let {
                 val builder = AlertDialog.Builder(it)
                 val inflater = requireActivity().layoutInflater;
@@ -137,21 +149,18 @@ class HomeFragment : Fragment() {
 
                 builder.setView(layout)
 
-                val arrayAdapter = ACIngredientsAdapter(
-                    requireActivity(), R.layout.custom_autocomplete_layout,
-                    allowedIngredients
-                )
-
                 measurementText = layout.findViewById(R.id.measurement) as TextView
                 amountText = layout.findViewById(R.id.etAmount) as TextView
 
                 textView = layout.findViewById(R.id.tvingredient) as AutoCompleteTextView
                 textView.setAdapter(arrayAdapter)
-                textView.setOnClickListener { textView.showDropDown() }
-
+                allowedIngredients = arrayAdapter.getAllItems()
+                textView.setOnClickListener {
+                    textView.showDropDown()
+                    Log.i("Logging", allowedIngredients.toString())
+                }
                 builder.setPositiveButton("OK") { dialog, button ->
                     try {
-
                         var selectedIngredient = allowedIngredients.find{ingredient -> textView.text.toString().equals(ingredient.name)}
 
                         println(selectedIngredient!!.amountType)
@@ -161,7 +170,7 @@ class HomeFragment : Fragment() {
                             selectedIngredient!!.image,
                             selectedIngredient!!.amountType
                         )
-
+                        Log.i("Logging", t.toString())
                         ingredientsViewModel.insert(t)
 
                     } catch (e: Exception) {
@@ -190,12 +199,13 @@ class HomeFragment : Fragment() {
 
             textView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
+                    allowedIngredients = arrayAdapter.getAllItems()
                     val names = allowedIngredients.map { e -> e.name }
                     valid = names.contains(s.toString());
                     alertDialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = valid;
                     if(valid){
                         var ing = allowedIngredients.find{e -> e.name == s.toString()}
-                       measurementText.text = ing?.amountType?.name
+                        measurementText.text = ing?.amountType?.name
                         amountText.text = ing?.amount.toString()
                     }
                 }
@@ -214,18 +224,17 @@ class HomeFragment : Fragment() {
                     before: Int,
                     count: Int
                 ) {
-
                 }
             });
 
             alertDialog?.show()
             alertDialog?.getButton(AlertDialog.BUTTON_POSITIVE)?.isEnabled = false;
-
         }
 
 
         return root
     }
+
 
 
 }
