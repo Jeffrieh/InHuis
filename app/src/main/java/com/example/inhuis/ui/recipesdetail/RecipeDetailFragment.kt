@@ -10,20 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.database.amountTypes
-import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import com.example.inhuis.ui.recipes.RecipesViewModel
 import com.squareup.picasso.Picasso
 import org.json.JSONException
-import java.util.zip.Inflater
 
 class RecipeDetailFragment() : Fragment() {
 

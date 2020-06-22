@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.inhuis.ui.ingredients.IngredientsViewModel
+import com.example.inhuis.ui.home.IngredientsViewModel
 import com.example.inhuis.ui.recipes.RecipesViewModel
 
 class MainActivity : AppCompatActivity() {

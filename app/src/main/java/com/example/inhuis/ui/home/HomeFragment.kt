@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
-import com.example.inhuis.ui.ingredients.IngredientsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.dialog_add_ingredient.view.*
 
@@ -104,13 +103,10 @@ class HomeFragment : Fragment() {
             adapter.updateItems(ingredients)
             itemTouchHelper.attachToRecyclerView(recyclerView);
 
-            println("something updated!")
-
             val showAction = ingredients.map { t -> t.checked }.contains(true)
             if (showAction) {
                 if (mainActivity?.actionMode == null) mainActivity.startActionMode()
             } else {
-                println("stopping action mode")
                 mainActivity.stopActionMode()
             }
 

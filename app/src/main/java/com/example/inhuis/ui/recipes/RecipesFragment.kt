@@ -19,7 +19,7 @@ import com.example.inhuis.MainActivity
 import com.example.inhuis.R
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.database.amountTypes
-import com.example.inhuis.ui.ingredients.IngredientsViewModel
+import com.example.inhuis.ui.home.IngredientsViewModel
 import org.json.JSONException
 
 

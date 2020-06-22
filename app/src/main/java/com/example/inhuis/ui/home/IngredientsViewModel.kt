@@ -1,8 +1,7 @@
-package com.example.inhuis.ui.ingredients
+package com.example.inhuis.ui.home
 
 import android.app.Application
 import androidx.lifecycle.*
-import androidx.recyclerview.selection.Selection
 import com.example.inhuis.database.Ingredient
 import com.example.inhuis.database.IngredientDatabase
 import com.example.inhuis.database.IngredientRepository
