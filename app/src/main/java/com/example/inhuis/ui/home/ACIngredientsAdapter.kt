@@ -85,6 +85,8 @@ class ACIngredientsAdapter(
                                         .contains("fluid ounce")
                                 ) {
                                     amountTypes.LITER
+                                } else if (possibleUnits.toString().contains("cup")) {
+                                    amountTypes.ML
                                 } else if (possibleUnits.toString().contains("piece")) {
                                     amountTypes.PCS
                                 } else {
